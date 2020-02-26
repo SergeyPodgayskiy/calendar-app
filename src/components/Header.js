@@ -1,31 +1,35 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import Box from "@material-ui/core/Box";
+import MenuListDateViewPicker from "./header/MenuListDateViewPicker";
+import MainMenuButton from "./header/MainMenuButton";
+import MainLogo from "./header/MainLogo";
+import TodayButton from "./header/TodayButton";
+import PrevOrNextDateViewButtons from "./header/PrevOrNextDateViewButtons";
+import CurrentDateViewText from "./header/CurrentDateViewText";
 
-const useStyles = makeStyles(theme => ({
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-}));
+
 
 const Header = () => {
-const classes = useStyles();
-
   return (
     <header>
-     <AppBar color={"transparent"}>
-        <Toolbar>
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                <MenuIcon/>
-            </IconButton>
-            <Typography variant="h6">
-                Calendar
-            </Typography>
+     <AppBar color="transparent" position="relative">
+        <Toolbar style={{paddingTop: '8px', paddingBottom: '8px', justifyContent: 'space-between'}}>
+            <Box display="flex" flex="1 0 auto" alignItems="center" style={{paddingRight: '30px'}}>
+                <MainMenuButton/>
+                <MainLogo/>
+            </Box>
+            <Box display="flex" flex="1 1 100%">
+                <Box display="flex" flex="1 0 auto">
+                   <TodayButton/>
+                    <PrevOrNextDateViewButtons/>
+                    <CurrentDateViewText/>
+                </Box>
+                <Box display="flex">
+                    <MenuListDateViewPicker/>
+                </Box>
+            </Box>
         </Toolbar>
      </AppBar>
     </header>
