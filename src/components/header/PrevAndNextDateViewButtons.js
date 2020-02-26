@@ -3,7 +3,7 @@ import Box from "@material-ui/core/Box";
 import PreviousDateViewButton from "./prevOrNextDateViewButtons/PreviousDateViewButton";
 import NextDateViewButton from "./prevOrNextDateViewButtons/NextDateViewButton";
 
-const PrevOrNextDateViewButtons = () => {
+const PrevAndNextDateViewButtons = () => {
     return (
         <Box>
             <PreviousDateViewButton/>
@@ -12,4 +12,4 @@ const PrevOrNextDateViewButtons = () => {
     );
 };
 
-export default PrevOrNextDateViewButtons;
+export default PrevAndNextDateViewButtons;

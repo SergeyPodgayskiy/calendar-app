@@ -6,7 +6,7 @@ import MenuListDateViewPicker from "./header/MenuListDateViewPicker";
 import MainMenuButton from "./header/MainMenuButton";
 import MainLogo from "./header/MainLogo";
 import TodayButton from "./header/TodayButton";
-import PrevOrNextDateViewButtons from "./header/PrevOrNextDateViewButtons";
+import PrevAndNextDateViewButtons from "./header/PrevAndNextDateViewButtons";
 import CurrentDateViewText from "./header/CurrentDateViewText";
 
 
@@ -23,7 +23,7 @@ const Header = () => {
             <Box display="flex" flex="1 1 100%">
                 <Box display="flex" flex="1 0 auto">
                    <TodayButton/>
-                    <PrevOrNextDateViewButtons/>
+                    <PrevAndNextDateViewButtons/>
                     <CurrentDateViewText/>
                 </Box>
                 <Box display="flex">
