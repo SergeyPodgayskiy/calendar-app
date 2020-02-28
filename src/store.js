@@ -7,8 +7,8 @@ const rootReducer = combineReducers({
 });
 
 console.log('rootRed', createStore);
-const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__COMPOSE) || compose;
 
-const store = createStore(rootReducer, compose(applyMiddleware(thunk)));
+const store = createStore(rootReducer, compose(applyMiddleware(thunk), composeEnhancers));
 
 export default store;
