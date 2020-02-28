@@ -2,12 +2,13 @@ import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Box from '@material-ui/core/Box';
-import MenuListDateViewPicker from './header/MenuListDateViewPicker';
+import CalendarViewTypePicker from './header/CalendarViewTypePicker';
 import MainMenuButton from './header/MainMenuButton';
 import MainLogo from './header/MainLogo';
-import TodayButton from './header/TodayButton';
-import PrevAndNextDateViewButtons from './header/PrevAndNextDateViewButtons';
-import CurrentDateViewText from './header/CurrentDateViewText';
+import TodayDateButton from './header/TodayDateButton';
+import SelectedDateOfViewType from './header/SelectedDateOfViewType';
+import PrevDateOfViewTypeButton from './header/PrevDateOfViewTypeButton';
+import NextDateOfViewTypeButton from './header/NextDateOfViewTypeButton';
 
 const Header = () => {
   return (
@@ -19,12 +20,15 @@ const Header = () => {
         </Box>
         <Box display="flex" flex="1 1 100%">
           <Box display="flex" flex="1 0 auto">
-            <TodayButton />
-            <PrevAndNextDateViewButtons />
-            <CurrentDateViewText />
+            <TodayDateButton />
+            <Box>
+              <PrevDateOfViewTypeButton />
+              <NextDateOfViewTypeButton />
+            </Box>
+            <SelectedDateOfViewType />
           </Box>
           <Box display="flex">
-            <MenuListDateViewPicker />
+            <CalendarViewTypePicker />
           </Box>
         </Box>
       </Toolbar>

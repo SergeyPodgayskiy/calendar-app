@@ -1,32 +1,16 @@
 import React from 'react';
 import './App.css';
+import Calendar from './pages/Calendar';
 import { CssBaseline } from '@material-ui/core';
-import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
-import Header from './components/Header';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
-import MainContainer from './components/MainContainer';
-
-const useStyles = makeStyles(theme => ({
-  container: {
-    flexGrow: 1,
-  },
-}));
+import { Provider } from 'react-redux';
+import store from './store';
 
 function App() {
-  const classes = useStyles();
-
   return (
-    <>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <CssBaseline />
-        <Header style={{ height: '7vh' }} />
-        <Container maxWidth={'xl'} className={classes.container} style={{ height: '93vh' }}>
-          <MainContainer />
-        </Container>
-      </MuiPickersUtilsProvider>
-    </>
+    <Provider store={store}>
+      <CssBaseline />
+      <Calendar />
+    </Provider>
   );
 }
 

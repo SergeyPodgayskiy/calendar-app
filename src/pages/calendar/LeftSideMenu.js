@@ -3,7 +3,7 @@ import Box from '@material-ui/core/Box';
 import { Calendar } from '@material-ui/pickers';
 import CreateEventButton from './leftSideMenu/CreateEventButton';
 import { makeStyles } from '@material-ui/core/styles';
-import useMarginTopBottomSpacing from '../hooks/useMarginTopBottomSpacing';
+import useMarginTopBottomSpacing from '../../components/hooks/useMarginTopBottomSpacing';
 
 const useStyles = makeStyles(theme => ({
   createEventButtonWrapper: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Button from '@material-ui/core/Button';
-import useMarginLeftRightSpacing from '../hooks/useMarginLeftRightSpacing';
+import useMarginLeftRightSpacing from '../../../components/hooks/useMarginLeftRightSpacing';
 
 const useStyles = makeStyles(theme => ({
   todayButton: {
@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const TodayButton = () => {
+const TodayDateButton = () => {
   const classes = useStyles();
 
   return (
@@ -23,4 +23,4 @@ const TodayButton = () => {
   );
 };
 
-export default TodayButton;
+export default TodayDateButton;

@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const MenuListDateViewPicker = () => {
+const CalendarViewTypePicker = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -90,4 +90,4 @@ const MenuListDateViewPicker = () => {
   );
 };
 
-export default MenuListDateViewPicker;
+export default CalendarViewTypePicker;

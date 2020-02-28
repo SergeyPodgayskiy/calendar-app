@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const PreviousDateViewButton = () => {
+const PrevDateOfViewTypeButton = () => {
   const classes = useStyles();
 
   return (
@@ -26,4 +26,4 @@ const PreviousDateViewButton = () => {
   );
 };
 
-export default PreviousDateViewButton;
+export default PrevDateOfViewTypeButton;
