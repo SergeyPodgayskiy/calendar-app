@@ -52,7 +52,6 @@ const dayOfMonthNumberFormat = 'd';
 
 const CalendarGridHeaderCell = () => {
   const classes = useStyles(true)();
-  const currentDate = useSelector(state => state.calendar.currentDate);
   const selectedDate = useSelector(state => state.calendar.selectedDate);
 
   const selectedDayOfWeekName = format(selectedDate, dayOfWeekNameFormat);
