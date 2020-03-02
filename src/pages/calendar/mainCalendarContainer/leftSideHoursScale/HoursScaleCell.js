@@ -8,9 +8,11 @@ const useStyles = makeStyles(theme => ({
     minHeight: '48px',
     textAlign: 'center',
     height: 'auto',
-    paddingTop: '8px',
-    paddingBottom: '8px',
     color: theme.palette.text.secondary,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    lineHeight: 'initial',
   },
 }));
 
