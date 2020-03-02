@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
 import Box from '@material-ui/core/Box';
-import { Calendar } from '@material-ui/pickers';
 import CreateEventButton from './leftSideMenu/CreateEventButton';
 import { makeStyles } from '@material-ui/core/styles';
-import useMarginTopBottomSpacing from '../../components/hooks/useMarginTopBottomSpacing';
+import usePaddingTopBottomSpacing from '../../components/hooks/usePaddingTopBottomSpacing';
+import MiniCalendar from './leftSideMenu/MiniCalendar';
 
 const useStyles = makeStyles(theme => ({
   createEventButtonWrapper: {
-    ...useMarginTopBottomSpacing(theme, 1),
+    ...usePaddingTopBottomSpacing(theme, 1),
   },
   miniCalendarWrapper: {
-    ...useMarginTopBottomSpacing(theme, 3),
+    ...usePaddingTopBottomSpacing(theme, 3),
   },
 }));
 
 // TODO: implement & add 'My Calendars' component
 const LeftSideMenu = () => {
   const classes = useStyles();
-  const [date, setDate] = useState(new Date());
 
   return (
     <>
@@ -25,7 +24,7 @@ const LeftSideMenu = () => {
         <CreateEventButton />
       </Box>
       <Box className={classes.miniCalendarWrapper}>
-        <Calendar date={date} onChange={setDate} />
+        <MiniCalendar />
       </Box>
     </>
   );

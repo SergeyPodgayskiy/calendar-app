@@ -6,15 +6,31 @@ import CalendarViewTypePicker from './header/CalendarViewTypePicker';
 import MainMenuButton from './header/MainMenuButton';
 import MainLogo from './header/MainLogo';
 import TodayDateButton from './header/TodayDateButton';
-import SelectedDateOfViewType from './header/SelectedDateOfViewType';
-import PrevDateOfViewTypeButton from './header/PrevDateOfViewTypeButton';
-import NextDateOfViewTypeButton from './header/NextDateOfViewTypeButton';
+import SelectedDatePeriodText from './header/SelectedDatePeriodText';
+import PrevDatePeriodButton from './header/PrevDatePeriodButton';
+import NextDatePeriodButton from './header/NextDatePeriodButton';
+import { makeStyles } from '@material-ui/core/styles';
+import useMarginTopBottomSpacing from '../../components/hooks/useMarginTopBottomSpacing';
+
+const useStyles = makeStyles(theme => ({
+  toolbar: {
+    ...useMarginTopBottomSpacing(theme, 1),
+    justifyContent: 'space-between',
+  },
+  composedMenuBox: {
+    marginRight: theme.spacing(6),
+    alignItems: 'center',
+  },
+}));
 
 const Header = () => {
+  const classes = useStyles();
+  console.log('classes', classes.appbar);
+
   return (
-    <AppBar color="transparent" position="relative">
-      <Toolbar style={{ paddingTop: '8px', paddingBottom: '8px', justifyContent: 'space-between' }}>
-        <Box display="flex" flex="1 0 auto" alignItems="center" style={{ paddingRight: '30px' }}>
+    <AppBar position="relative" color="transparent">
+      <Toolbar classes={classes.toolbar}>
+        <Box display="flex" flex="1 0 auto" className={classes.composedMenuBox}>
           <MainMenuButton />
           <MainLogo />
         </Box>
@@ -22,10 +38,10 @@ const Header = () => {
           <Box display="flex" flex="1 0 auto">
             <TodayDateButton />
             <Box>
-              <PrevDateOfViewTypeButton />
-              <NextDateOfViewTypeButton />
+              <PrevDatePeriodButton />
+              <NextDatePeriodButton />
             </Box>
-            <SelectedDateOfViewType />
+            <SelectedDatePeriodText />
           </Box>
           <Box display="flex">
             <CalendarViewTypePicker />

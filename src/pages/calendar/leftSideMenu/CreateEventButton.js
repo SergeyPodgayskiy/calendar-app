@@ -2,11 +2,11 @@ import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-import useMarginTopBottomSpacing from '../../../components/hooks/useMarginTopBottomSpacing';
+import usePaddingTopBottomSpacing from '../../../components/hooks/usePaddingTopBottomSpacing';
 
 const useStyles = makeStyles(theme => ({
   createEventButton: {
-    ...useMarginTopBottomSpacing(theme, 1),
+    ...usePaddingTopBottomSpacing(theme, 1),
   },
 }));
 

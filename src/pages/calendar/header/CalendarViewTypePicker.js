@@ -9,6 +9,9 @@ import Button from '@material-ui/core/Button';
 import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import { useSelector, useDispatch } from 'react-redux';
+import dateViewTypes from '../../../utils/dateViewTypes';
+import { setViewType } from '../../../modules/calendar';
 
 const useStyles = makeStyles(theme => ({
   selectedViewButton: {
@@ -18,10 +21,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const viewTypeOptions = Object.values(dateViewTypes);
+
 const CalendarViewTypePicker = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
+  const selectedViewType = useSelector(state => state.calendar.viewType);
+  const dispatch = useDispatch();
 
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
@@ -31,8 +38,15 @@ const CalendarViewTypePicker = () => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
-
     setOpen(false);
+  };
+
+  const handleSelectViewType = (event, index) => {
+    const viewType = viewTypeOptions[index];
+    if (viewType) {
+      setViewType(viewType)(dispatch);
+    }
+    handleToggle();
   };
 
   const handleListKeyDown = event => {
@@ -48,7 +62,6 @@ const CalendarViewTypePicker = () => {
     if (prevOpen.current === true && open === false) {
       anchorRef.current.focus();
     }
-
     prevOpen.current = open;
   }, [open]);
 
@@ -65,7 +78,7 @@ const CalendarViewTypePicker = () => {
         onClick={handleToggle}
         endIcon={<ExpandMoreRoundedIcon />}
       >
-        Selected Date View
+        {selectedViewType}
       </Button>
       <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
         {({ TransitionProps, placement }) => (
@@ -76,10 +89,13 @@ const CalendarViewTypePicker = () => {
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList autoFocusItem={open} id="menuListGrow" onKeyDown={handleListKeyDown}>
-                  <MenuItem onClick={handleClose}>Day</MenuItem>
-                  <MenuItem onClick={handleClose}>Week</MenuItem>
-                  <MenuItem onClick={handleClose}>Month</MenuItem>
-                  <MenuItem onClick={handleClose}>Year</MenuItem>
+                  {viewTypeOptions.map((option, index) => {
+                    return (
+                      <MenuItem key={option} onClick={event => handleSelectViewType(event, index)}>
+                        {option}
+                      </MenuItem>
+                    );
+                  })}
                 </MenuList>
               </ClickAwayListener>
             </Paper>

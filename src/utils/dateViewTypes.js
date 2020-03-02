@@ -7,4 +7,4 @@ export default {
   year: YEAR,
 };
 
-export const DEFAULT_CALENDAR_VIEW_TYPE = WEEK;
+export const DEFAULT_CALENDAR_VIEW_TYPE = DAY;

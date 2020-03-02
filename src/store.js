@@ -3,12 +3,13 @@ import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import calendarReducer from './modules/calendar';
 
 const rootReducer = combineReducers({
-  calendarReducer,
+  calendar: calendarReducer,
 });
 
-console.log('rootRed', createStore);
-const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__COMPOSE) || compose;
+const composeEnhancers =
+  (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()) ||
+  compose;
 
 const store = createStore(rootReducer, compose(applyMiddleware(thunk), composeEnhancers));
-
+console.log(store.getState());
 export default store;
