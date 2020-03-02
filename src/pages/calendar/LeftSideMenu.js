@@ -7,7 +7,8 @@ import MiniCalendar from './leftSideMenu/MiniCalendar';
 
 const useStyles = makeStyles(theme => ({
   createEventButtonWrapper: {
-    ...usePaddingTopBottomSpacing(theme, 1),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(1),
   },
   miniCalendarWrapper: {
     ...usePaddingTopBottomSpacing(theme, 3),

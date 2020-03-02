@@ -6,6 +6,7 @@ import CalendarGrid from './mainCalendarContainer/CalendarGrid';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import usePaddingTopBottomSpacing from '../../components/hooks/usePaddingTopBottomSpacing';
 import usePaddingLeftRightSpacing from '../../components/hooks/usePaddingLeftRightSpacing';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles(theme => ({
   containerWrapper: {
@@ -13,6 +14,11 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     height: '100%',
     paddingLeft: theme.spacing(5),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(1),
+  },
+  paperWrapper: {
+    height: '100%',
   },
   calendarHeaderWrapper: {
     ...usePaddingTopBottomSpacing(theme, 1),
@@ -35,17 +41,19 @@ const MainCalendarContainer = () => {
 
   return (
     <Box className={classes.containerWrapper}>
-      <Box className={classes.calendarHeaderWrapper}>
-        <CalendarGridHeader />
-      </Box>
-      <Box className={classes.mainWrapper}>
-        <Box>
-          <LeftSideHoursScale />
+      <Paper className={classes.paperWrapper}>
+        <Box className={classes.calendarHeaderWrapper}>
+          <CalendarGridHeader />
         </Box>
-        <Box className={classes.calendarGridViewWrapper}>
-          <CalendarGrid />
+        <Box className={classes.mainWrapper}>
+          <Box>
+            <LeftSideHoursScale />
+          </Box>
+          <Box className={classes.calendarGridViewWrapper}>
+            <CalendarGrid />
+          </Box>
         </Box>
-      </Box>
+      </Paper>
     </Box>
   );
 };

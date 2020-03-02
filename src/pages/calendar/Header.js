@@ -10,11 +10,9 @@ import SelectedDatePeriodText from './header/SelectedDatePeriodText';
 import PrevDatePeriodButton from './header/PrevDatePeriodButton';
 import NextDatePeriodButton from './header/NextDatePeriodButton';
 import { makeStyles } from '@material-ui/core/styles';
-import useMarginTopBottomSpacing from '../../components/hooks/useMarginTopBottomSpacing';
 
 const useStyles = makeStyles(theme => ({
   toolbar: {
-    ...useMarginTopBottomSpacing(theme, 1),
     justifyContent: 'space-between',
   },
   composedMenuBox: {
@@ -28,8 +26,8 @@ const Header = () => {
   console.log('classes', classes.appbar);
 
   return (
-    <AppBar position="relative" color="transparent">
-      <Toolbar classes={classes.toolbar}>
+    <AppBar position="relative" color={'inherit'}>
+      <Toolbar className={classes.toolbar}>
         <Box display="flex" flex="1 0 auto" className={classes.composedMenuBox}>
           <MainMenuButton />
           <MainLogo />
