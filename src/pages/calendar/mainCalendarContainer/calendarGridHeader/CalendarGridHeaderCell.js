@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { useSelector } from 'react-redux';
 import { format, isToday } from 'date-fns';
 
-const useStyles = isOneCell =>
+const useStyles = (isOneCell = false) =>
   makeStyles(theme => ({
     headerCell: {
       width: '81px',
@@ -57,7 +57,6 @@ const CalendarGridHeaderCell = () => {
   const selectedDayOfWeekName = format(selectedDate, dayOfWeekNameFormat);
   const selectedDateOfMonth = format(selectedDate, dayOfMonthNumberFormat);
   const isSelectedDateIsToday = isToday(selectedDate);
-  console.log(classes.dayNameCaption);
 
   return (
     <Box className={classes.headerCell}>

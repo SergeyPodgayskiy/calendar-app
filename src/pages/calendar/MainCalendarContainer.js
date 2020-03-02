@@ -7,6 +7,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import usePaddingTopBottomSpacing from '../../components/hooks/usePaddingTopBottomSpacing';
 import usePaddingLeftRightSpacing from '../../components/hooks/usePaddingLeftRightSpacing';
 import Paper from '@material-ui/core/Paper';
+import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles(theme => ({
   containerWrapper: {
@@ -19,6 +20,8 @@ const useStyles = makeStyles(theme => ({
   },
   paperWrapper: {
     height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
   },
   calendarHeaderWrapper: {
     ...usePaddingTopBottomSpacing(theme, 1),
@@ -30,9 +33,11 @@ const useStyles = makeStyles(theme => ({
   },
   leftSideScaleWrapper: {
     ...usePaddingLeftRightSpacing(theme, 1),
+    flexBasis: '40px',
   },
   calendarGridViewWrapper: {
     flex: '1 0 auto',
+    ...usePaddingLeftRightSpacing(theme, 1),
   },
 }));
 
@@ -45,8 +50,9 @@ const MainCalendarContainer = () => {
         <Box className={classes.calendarHeaderWrapper}>
           <CalendarGridHeader />
         </Box>
+        <Divider />
         <Box className={classes.mainWrapper}>
-          <Box>
+          <Box className={classes.leftSideScaleWrapper}>
             <LeftSideHoursScale />
           </Box>
           <Box className={classes.calendarGridViewWrapper}>
