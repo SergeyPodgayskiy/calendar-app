@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   },
   mainCalendarContainer: {
     ...usePaddingTopBottomSpacing(theme, 1),
-    flex: '1 0 auto',
+    flexGrow: '1',
     height: '100%',
   },
 }));

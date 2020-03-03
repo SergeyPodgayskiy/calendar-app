@@ -23,7 +23,6 @@ const useStyles = makeStyles(theme => ({
 
 const Header = () => {
   const classes = useStyles();
-  console.log('classes', classes.appbar);
 
   return (
     <AppBar position="relative" color={'inherit'}>

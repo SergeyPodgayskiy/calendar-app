@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Calendar } from '@material-ui/pickers';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSelectedDate } from '../../../modules/calendar';
-import { Paper } from '@material-ui/core';
+import { isDate } from 'date-fns';
+import Box from '@material-ui/core/Box';
 
-const MiniCalendar = () => {
-  const date = useSelector(state => state.calendar.selectedDate);
+const MiniCalendar = ({ dateToSelect, theme }) => {
+  const selectedDateFromState = useSelector(state => state.calendar.selectedDate);
+  const date = isDate(dateToSelect) ? dateToSelect : selectedDateFromState;
   const dispatch = useDispatch();
 
   const handleSetSelectedDate = (date, isFinish) => {
@@ -13,9 +15,9 @@ const MiniCalendar = () => {
   };
 
   return (
-    <Paper style={{ overflow: 'hidden' }}>
-      <Calendar date={date} onChange={handleSetSelectedDate} />
-    </Paper>
+    <Box style={{ overflow: 'hidden' }}>
+      <Calendar date={date} onChange={handleSetSelectedDate} theme={theme} />
+    </Box>
   );
 };
 

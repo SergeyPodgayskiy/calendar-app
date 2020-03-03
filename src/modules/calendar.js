@@ -46,7 +46,6 @@ export function setViewType(viewType) {
 }
 
 export function setSelectedDate(date) {
-  console.log(date);
   return dispatch => {
     dispatch({ type: CALENDAR_SET_SELECTED_DATE, payload: { selectedDate: date } });
   };

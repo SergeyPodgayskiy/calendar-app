@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(theme => ({
   scaleCellWrapper: {
+    width: '48px',
     minHeight: '48px',
     textAlign: 'center',
     height: 'auto',
@@ -17,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 // Ex; hour = 1, hourPeriod = AM
-const HoursScaleCell = ({ hour, hourPeriod }) => {
+const HourCell = ({ hour, hourPeriod }) => {
   const classes = useStyles();
 
   return (
@@ -27,4 +28,4 @@ const HoursScaleCell = ({ hour, hourPeriod }) => {
   );
 };
 
-export default HoursScaleCell;
+export default HourCell;
