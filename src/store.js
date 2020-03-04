@@ -1,9 +1,11 @@
 import thunk from 'redux-thunk';
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import calendarReducer from './modules/calendar';
+import eventsReducer from './modules/events';
 
 const rootReducer = combineReducers({
   calendar: calendarReducer,
+  events: eventsReducer,
 });
 
 const composeEnhancers =

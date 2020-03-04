@@ -13,7 +13,6 @@ const useStyles = makeStyles(theme => ({
 
 const HourRow = ({ hour, period, days }) => {
   const classes = useStyles();
-  console.log(days);
 
   return (
     <Box className={classes.hourRowWrapper}>
@@ -21,7 +20,7 @@ const HourRow = ({ hour, period, days }) => {
       {days &&
         days.map((day, index) => {
           return (
-            <Box display={'flex'}>
+            <Box display={'flex'} flexGrow={'1'}>
               <HourCell hour={hour} period={period} day={day} />
               {index !== days.length - 1 && <Divider orientation={'vertical'} flexItem />}
             </Box>
