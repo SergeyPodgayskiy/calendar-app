@@ -4,12 +4,12 @@ import { Box } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import DayHeaderCell from './daysViewTypeHeader/DayHeaderCell';
 import dateViewTypes from '../../../../../utils/dateViewTypes';
-import { eachDayOfWeekForDate } from '../../../calendarGridUtil';
+import { eachDayOfWeekForDate } from '../../../../../utils/calendarGridUtil';
 
 const useStyles = areFewDaysToRender =>
   makeStyles(theme => ({
     cellsHeader: {
-      marginLeft: '48px',
+      marginLeft: '56px',
       paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
       display: 'flex',
@@ -44,7 +44,7 @@ const DaysViewTypeHeader = () => {
       <Box className={classes.cellsHeader}>
         {daysToRender.map(day => {
           return (
-            <Box className={classes.cellWrapper}>
+            <Box key={day} className={classes.cellWrapper}>
               <DayHeaderCell day={day} />
             </Box>
           );

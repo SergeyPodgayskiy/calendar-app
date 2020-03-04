@@ -13,6 +13,8 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     justifyContent: 'flex-end',
     lineHeight: 'initial',
+    fontSize: '0.7rem',
+    flexShrink: '0',
   },
 }));
 

@@ -5,7 +5,7 @@ import Divider from '@material-ui/core/Divider';
 
 import DaysViewTypeHeader from './daysViewTypeGrid/DaysViewTypeHeader';
 import usePaddingLeftRightSpacing from '../../../../components/hooks/usePaddingLeftRightSpacing';
-import { hours } from '../../calendarGridUtil';
+import { eachDayOfWeekForDate, hours } from '../../../../utils/calendarGridUtil';
 import HourRow from './daysViewTypeGrid/HourRow';
 import { useSelector } from 'react-redux';
 import dateViewTypes from '../../../../utils/dateViewTypes';
@@ -24,6 +24,9 @@ const useStyles = makeStyles(theme => ({
   hoursGrid: {
     ...usePaddingLeftRightSpacing(theme, 1),
   },
+  divider: {
+    marginBottom: theme.spacing(1),
+  },
 }));
 
 const DaysViewTypeGrid = () => {
@@ -31,9 +34,9 @@ const DaysViewTypeGrid = () => {
   const viewType = useSelector(state => state.calendar.viewType);
   const selectedDate = useSelector(state => state.calendar.selectedDate);
 
-  let datesToRender = [selectedDate];
-
+  let daysToRender = [selectedDate];
   if (viewType === dateViewTypes.week) {
+    daysToRender = eachDayOfWeekForDate(selectedDate);
   }
 
   return (
@@ -41,10 +44,10 @@ const DaysViewTypeGrid = () => {
       <Box className={classes.calendarHeaderWrapper}>
         <DaysViewTypeHeader />
       </Box>
-      <Divider />
+      <Divider className={classes.divider} />
       <Box className={classes.hoursGrid}>
         {hours.map(({ hour, period }) => {
-          return <HourRow hour={hour} period={period} cellsNumber={1} />;
+          return <HourRow key={`${hour}-${period}`} hour={hour} period={period} days={daysToRender} />;
         })}
       </Box>
     </>
