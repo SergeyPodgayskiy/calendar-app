@@ -38,7 +38,9 @@ const Calendar = () => {
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <Header />
+      <Box className={classes.header}>
+        <Header />
+      </Box>
       <Container maxWidth={'xl'} className={classes.container}>
         <Box display="flex" height="100%">
           <Box className={classes.leftSideMenu}>

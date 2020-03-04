@@ -12,6 +12,7 @@ import dateViewTypes from '../../../../utils/dateViewTypes';
 import { startOfWeek, endOfWeek, eachDayOfInterval } from 'date-fns';
 
 const useStyles = makeStyles(theme => ({
+  daysHeader: {},
   hourRowWrapper: {
     minHeight: '48px',
     height: 'auto',
@@ -41,7 +42,7 @@ const DaysViewTypeGrid = () => {
 
   return (
     <>
-      <Box className={classes.calendarHeaderWrapper}>
+      <Box className={classes.daysHeader}>
         <DaysViewTypeHeader />
       </Box>
       <Divider className={classes.divider} />

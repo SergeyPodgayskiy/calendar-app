@@ -10,7 +10,6 @@ const useStyles = areFewDaysToRender =>
   makeStyles(theme => ({
     cellsHeader: {
       marginLeft: '56px',
-      paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
       display: 'flex',
       flex: '1 0 auto',

@@ -4,6 +4,7 @@ import CreateEventButton from './leftSideMenu/CreateEventButton';
 import { makeStyles } from '@material-ui/core/styles';
 import usePaddingTopBottomSpacing from '../../components/hooks/usePaddingTopBottomSpacing';
 import MiniCalendar from './leftSideMenu/MiniCalendar';
+import EventForm from './leftSideMenu/EventForm';
 
 const useStyles = makeStyles(theme => ({
   createEventButtonWrapper: {
@@ -24,6 +25,7 @@ const LeftSideMenu = () => {
       <Box className={classes.createEventButtonWrapper}>
         <CreateEventButton />
       </Box>
+      <EventForm />
       <Box className={classes.miniCalendarWrapper}>
         <MiniCalendar />
       </Box>

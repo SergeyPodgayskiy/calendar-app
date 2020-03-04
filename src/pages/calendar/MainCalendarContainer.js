@@ -21,9 +21,6 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     ...usePaddingTopBottomSpacing(theme, 1),
   },
-  calendarHeaderWrapper: {
-    ...usePaddingTopBottomSpacing(theme, 1),
-  },
   mainWrapper: {
     display: 'flex',
     flex: '1 0 auto',
