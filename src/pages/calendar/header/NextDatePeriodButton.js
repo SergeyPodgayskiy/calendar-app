@@ -32,7 +32,7 @@ const NextDatePeriodButton = () => {
           className={classes.nextDateViewButton}
           onClick={handleSetNextDatePeriod}
         >
-          <NavigateNextRoundedIcon fontSize="medium" />
+          <NavigateNextRoundedIcon />
         </IconButton>
       </Tooltip>
     </>

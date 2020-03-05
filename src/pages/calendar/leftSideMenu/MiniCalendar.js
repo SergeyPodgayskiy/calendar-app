@@ -16,7 +16,7 @@ const MiniCalendar = ({ dateToSelect, theme }) => {
 
   return (
     <Box style={{ overflow: 'hidden' }}>
-      <Calendar date={date} onChange={handleSetSelectedDate} theme={theme} />
+      <Calendar allowKeyboardControl={false} date={date} onChange={handleSetSelectedDate} theme={theme} />
     </Box>
   );
 };

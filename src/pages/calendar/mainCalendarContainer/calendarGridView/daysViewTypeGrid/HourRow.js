@@ -20,7 +20,7 @@ const HourRow = ({ hour, period, days }) => {
       {days &&
         days.map((day, index) => {
           return (
-            <Box display={'flex'} flexGrow={'1'}>
+            <Box display={'flex'} flexGrow={'1'} key={`${day}${index}`}>
               <HourCell hour={hour} period={period} day={day} />
               {index !== days.length - 1 && <Divider orientation={'vertical'} flexItem />}
             </Box>

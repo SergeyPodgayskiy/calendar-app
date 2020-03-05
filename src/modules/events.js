@@ -7,12 +7,14 @@ const EVENTS_FETCH_SUCCESS = 'events:fetch.success';
 const EVENTS_FETCH_FAIL = 'events:fetch.fail';
 const EVENTS_PERSIST_SUCCESS = 'events:persist.success';
 const EVENTS_PERSIST_FAIL = 'events:persist.failure';
+const EVENT_FORM_TOGGLE = 'eventForm:toggle';
 
 // Initial State
 const initialState = {
   items: [],
   isLoading: false,
   error: null,
+  isExpandedEventForm: false,
 };
 
 // Reducer
@@ -38,7 +40,8 @@ export default function reducer(state = initialState, { type, payload }) {
       };
     case EVENTS_PERSIST_SUCCESS:
       return {
-        items: [...payload],
+        ...state,
+        items: payload,
         isLoading: false,
         error: null,
       };
@@ -48,17 +51,23 @@ export default function reducer(state = initialState, { type, payload }) {
         isLoading: false,
         error: payload,
       };
+    case EVENT_FORM_TOGGLE: {
+      return {
+        ...state,
+        isExpandedEventForm: !state.isExpandedEventForm,
+      };
+    }
     default:
       return state;
   }
 }
 
 // Actions
-function fetchEvents() {
+export function fetchEvents() {
   return async dispatch => {
     dispatch({ type: EVENTS_FETCHING });
     try {
-      const events = await localStorageApi.fetch(EVENTS);
+      const events = await localStorageApi.fetchAsync(EVENTS);
       dispatch({ type: EVENTS_FETCH_SUCCESS, payload: events });
     } catch (error) {
       dispatch({ type: EVENTS_FETCH_FAIL, payload: new Error('Failed to get your events. Please refresh the page') });
@@ -67,14 +76,23 @@ function fetchEvents() {
   };
 }
 
-function persistEvents(items) {
+export function persistEvent(event) {
   return async dispatch => {
     try {
-      const events = await localStorageApi.persist(EVENTS, items);
-      dispatch({ type: EVENTS_PERSIST_SUCCESS, payload: events });
+      let eventsObj = localStorageApi.get(EVENTS);
+      let eventsArr = eventsObj ? [...eventsObj] : [];
+      eventsArr.push(event);
+      eventsArr = await localStorageApi.persistAsync(EVENTS, eventsArr);
+      dispatch({ type: EVENTS_PERSIST_SUCCESS, payload: eventsArr });
     } catch (error) {
       dispatch({ type: EVENTS_PERSIST_FAIL, payload: new Error('Failed to save your events. Please try again') });
       console.error(error);
     }
+  };
+}
+
+export function toggleEventForm() {
+  return dispatch => {
+    dispatch({ type: EVENT_FORM_TOGGLE });
   };
 }

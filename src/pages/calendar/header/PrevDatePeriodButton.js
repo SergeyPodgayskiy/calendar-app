@@ -32,7 +32,7 @@ const PrevDatePeriodButton = () => {
           className={classes.previousDateViewButton}
           onClick={handleSetPreviousDatePeriod}
         >
-          <NavigateBeforeRoundedIcon fontSize="medium" />
+          <NavigateBeforeRoundedIcon />
         </IconButton>
       </Tooltip>
     </>
