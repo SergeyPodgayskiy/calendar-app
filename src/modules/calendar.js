@@ -1,6 +1,6 @@
 import DateFnsUtils from '@date-io/date-fns';
 import viewTypes, { DEFAULT_CALENDAR_VIEW_TYPE } from '../utils/dateViewTypes';
-import { add, sub } from 'date-fns';
+import { add, sub, set, getHours, getMinutes, getSeconds, getMilliseconds } from 'date-fns';
 
 // Action Types
 const CALENDAR_SET_CURRENT_DATE = 'calendar:setCurrentDate';
@@ -21,7 +21,12 @@ export default function reducer(state = initialState, { type, payload }) {
     case CALENDAR_SET_SELECTED_DATE:
       return {
         ...state,
-        selectedDate: payload.selectedDate,
+        selectedDate: set(payload.selectedDate, {
+          hours: getHours(state.currentDate),
+          minutes: getMinutes(state.currentDate),
+          seconds: getSeconds(state.currentDate),
+          milliseconds: getMilliseconds(state.currentDate),
+        }),
       };
     case CALENDAR_SET_CURRENT_DATE:
       return {
