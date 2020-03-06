@@ -89,46 +89,39 @@ const DESCRIPTION = 'description';
 const EventForm = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const selectedDate = useSelector(state => state.calendar.selectedDate);
-  const endEventDate = addHours(selectedDate, DEFAULT_EVENT_HOURS_DIFFERENCE);
+  const currentSelectedDate = useSelector(state => state.calendar.selectedDate);
+  const endEventDate = addHours(currentSelectedDate, DEFAULT_EVENT_HOURS_DIFFERENCE);
   const isExpandedForm = useSelector(state => state.events.isExpandedEventForm);
   const error = useSelector(state => state.events.error);
 
   // Form State
   const [title, setTitle] = useState('');
-  const [startDate, setStartDate] = useState(selectedDate);
+  const [startDate, setStartDate] = useState(currentSelectedDate);
   const [endDate, setEndDate] = useState(endEventDate);
   const [description, setDescription] = useState('');
-  const [validationErrors, setValidationErrors] = useState({});
-  const isValid = !(validationErrors && validationErrors.length > 0);
+  const [validationErrors, setValidationErrors] = useState(null);
+  const isValidForm = !validationErrors || Object.keys(validationErrors).length === 0;
 
   // Effects
   useEffect(() => {
     if (isExpandedForm) {
-      handleStartDate(selectedDate);
+      handleStartDate(currentSelectedDate);
     }
-  }, [selectedDate, isExpandedForm]);
+  }, [currentSelectedDate, isExpandedForm]);
+
+  useEffect(() => {
+    const validationErrors = validateForm();
+    if (validationErrors) {
+      setValidationErrors(validationErrors);
+    } else {
+      setValidationErrors(null);
+    }
+  }, [endDate]);
 
   // Form Behavior
-  const handleStartDate = date => {
-    setStartDate(date);
-    setEndDate(addHours(date, DEFAULT_EVENT_HOURS_DIFFERENCE));
-  };
-
-  const validateStartDate = () => {
-    if (isAfter(startDate, endDate)) {
-      const errMessage = 'Start date should be less then End date';
-      let startDateError = validationErrors && validationErrors[START_DATE];
-      startDateError = startDateError ? [...startDateError, errMessage] : [errMessage];
-      setValidationErrors(...validationErrors);
-    } else {
-    }
-  };
-
-  const validateEndDate = () => {
-    if (isBefore(endDate, startDate)) {
-    } else {
-    }
+  const handleStartDate = startDate => {
+    setStartDate(startDate);
+    setEndDate(addHours(startDate, DEFAULT_EVENT_HOURS_DIFFERENCE));
   };
 
   const handleToggleEventForm = () => {
@@ -136,7 +129,7 @@ const EventForm = () => {
   };
 
   const handleSave = async () => {
-    if (isValid) {
+    if (isValidForm) {
       const event = {
         title,
         startDate,
@@ -154,9 +147,18 @@ const EventForm = () => {
     resetForm();
   };
 
+  const validateForm = () => {
+    const newValidationErrors = {};
+    if (isBefore(endDate, startDate)) {
+      newValidationErrors[END_DATE] = 'End Date should be greater than Start Date';
+    }
+    const isValid = Object.keys(newValidationErrors).length === 0;
+    return isValid ? null : newValidationErrors;
+  };
+
   const resetForm = () => {
     setTitle('');
-    setStartDate(selectedDate);
+    setStartDate(currentSelectedDate);
     setEndDate(endEventDate);
     setDescription('');
     setValidationErrors([]);
@@ -199,9 +201,9 @@ const EventForm = () => {
                 label="End"
                 className={classes.formLine}
                 value={endDate}
-                onChange={handleEndDate}
-                helperText=""
-                error={false}
+                onChange={setEndDate}
+                error={!isValidForm && Boolean(validationErrors[END_DATE])}
+                helperText={!isValidForm && validationErrors[END_DATE]}
               />
               <TextField
                 name={DESCRIPTION}
@@ -222,7 +224,7 @@ const EventForm = () => {
                   className={classes.saveButton}
                   type={'submit'}
                   onClick={handleSave}
-                  disabled={!isValid}
+                  disabled={!isValidForm}
                 >
                   Save
                 </Button>
