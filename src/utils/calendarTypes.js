@@ -1,11 +1,13 @@
 import { BIRTHDAYS, FAMILY, PERSONAL, REMINDERS, TASKS } from '../constants/constants';
 
-export default {
-  personal: PERSONAL,
-  birthdays: BIRTHDAYS,
-  reminders: REMINDERS,
-  tasks: TASKS,
-  family: FAMILY,
+const types = {
+  personal: { value: PERSONAL, color: '#039BE5' },
+  birthdays: { value: BIRTHDAYS, color: '#33B679' },
+  reminders: { value: REMINDERS, color: '#3F51B5' },
+  tasks: { value: TASKS, color: '#4285F4' },
+  family: { value: FAMILY, color: '#9E69AF' },
 };
 
-export const DEFAULT_CALENDAR_TYPE = PERSONAL;
+export const defaultCalendarType = types[PERSONAL];
+
+export default types;

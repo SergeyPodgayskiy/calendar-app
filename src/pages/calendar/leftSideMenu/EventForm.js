@@ -16,6 +16,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { toggleEventForm, persistEvent } from '../../../modules/events';
 import Alert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
+import calendarTypes, { defaultCalendarType } from '../../../utils/calendarTypes';
+import MenuItem from '@material-ui/core/MenuItem';
 
 // Panel Styles Overriding
 const ExpansionPanel = withStyles({
@@ -77,6 +79,17 @@ const useStyles = makeStyles(theme => ({
   saveButton: {
     marginLeft: theme.spacing(1),
   },
+  calendarTypeCircle: {
+    width: 16,
+    height: 16,
+    marginRight: 16,
+    borderRadius: '50%',
+  },
+  calendarTypeText: {
+    '&::first-letter': {
+      textTransform: 'uppercase',
+    },
+  },
 }));
 
 // Constants
@@ -85,6 +98,7 @@ const TITLE = 'title';
 const START_DATE = 'startDate';
 const END_DATE = 'endDate';
 const DESCRIPTION = 'description';
+const calendarTypeOptions = Object.values(calendarTypes);
 
 // Component
 const EventForm = () => {
@@ -100,6 +114,7 @@ const EventForm = () => {
   const [startDate, setStartDate] = useState(currentSelectedDate);
   const [endDate, setEndDate] = useState(endEventDate);
   const [description, setDescription] = useState('');
+  const [calendarType, setCalendarType] = useState(defaultCalendarType);
   const [validationErrors, setValidationErrors] = useState(null);
   const [isShowSnackbar, setIsShowSnackbar] = useState(false);
   const isValidForm = !validationErrors || Object.keys(validationErrors).length === 0;
@@ -126,6 +141,13 @@ const EventForm = () => {
     setEndDate(addHours(startDate, DEFAULT_EVENT_HOURS_DIFFERENCE));
   };
 
+  const handleSetCalendarType = event => {
+    const calendarType = calendarTypeOptions.find(option => option.value === event.target.value);
+    if (calendarType) {
+      setCalendarType({ ...calendarType });
+    }
+  };
+
   const handleToggleEventForm = () => {
     toggleEventForm()(dispatch);
   };
@@ -137,6 +159,7 @@ const EventForm = () => {
         startDate,
         endDate,
         description,
+        calendarType,
       };
       await persistEvent(event)(dispatch);
       handleToggleEventForm();
@@ -164,6 +187,7 @@ const EventForm = () => {
     setStartDate(currentSelectedDate);
     setEndDate(endEventDate);
     setDescription('');
+    setCalendarType(defaultCalendarType);
     setValidationErrors([]);
   };
 
@@ -220,6 +244,22 @@ const EventForm = () => {
                 value={description}
                 onChange={e => setDescription(e.target.value)}
               />
+              <TextField
+                select
+                value={calendarType.value}
+                onChange={handleSetCalendarType}
+                label="Calendar type"
+                className={classes.formLine}
+              >
+                {calendarTypeOptions.map(option => (
+                  <MenuItem key={option.value} value={option.value}>
+                    <Box display="flex" alignItems="center">
+                      <Box className={classes.calendarTypeCircle} style={{ backgroundColor: option.color }}></Box>
+                      <Box className={classes.calendarTypeText}>{option.value}</Box>
+                    </Box>
+                  </MenuItem>
+                ))}
+              </TextField>
               <Box className={`${classes.formLine} ${classes.buttons}`}>
                 <Button variant={'outlined'} color="secondary" size={'small'} onClick={handleCancel}>
                   Cancel

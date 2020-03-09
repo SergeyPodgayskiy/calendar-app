@@ -16,8 +16,18 @@ import { setViewType } from '../../../modules/calendar';
 const useStyles = makeStyles(theme => ({
   selectedViewButton: {
     border: '1px solid #dadce0',
-    textTransform: 'none',
     marginLeft: theme.spacing(1),
+    textTransform: 'none',
+  },
+  buttonText: {
+    '&::first-letter': {
+      textTransform: 'uppercase',
+    },
+  },
+  menuItemOptionText: {
+    '&::first-letter': {
+      textTransform: 'uppercase',
+    },
   },
 }));
 
@@ -78,7 +88,7 @@ const CalendarViewTypePicker = () => {
         onClick={handleToggle}
         endIcon={<ExpandMoreRoundedIcon />}
       >
-        {selectedViewType}
+        <span className={classes.buttonText}>{selectedViewType}</span>
       </Button>
       <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
         {({ TransitionProps, placement }) => (
@@ -92,7 +102,7 @@ const CalendarViewTypePicker = () => {
                   {viewTypeOptions.map((option, index) => {
                     return (
                       <MenuItem key={option} onClick={event => handleSelectViewType(event, index)}>
-                        {option}
+                        <Box className={classes.menuItemOptionText}>{option}</Box>
                       </MenuItem>
                     );
                   })}
