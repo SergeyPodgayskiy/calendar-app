@@ -1,4 +1,3 @@
-import DateFnsUtils from '@date-io/date-fns';
 import viewTypes, { DEFAULT_CALENDAR_VIEW_TYPE } from '../utils/dateViewTypes';
 import { add, sub, set, getHours, getMinutes, getSeconds, getMilliseconds } from 'date-fns';
 

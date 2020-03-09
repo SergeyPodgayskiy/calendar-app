@@ -1,5 +1,3 @@
-import React from 'react';
-
 const usePaddingLeftRightSpacing = (theme, value) => {
   return {
     paddingLeft: theme.spacing(value),

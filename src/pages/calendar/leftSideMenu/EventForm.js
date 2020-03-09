@@ -4,7 +4,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import TextField from '@material-ui/core/TextField';
 import { DateTimePicker } from '@material-ui/pickers';
 import { useDispatch, useSelector } from 'react-redux';
-import { addHours, isBefore, isAfter } from 'date-fns';
+import { addHours, isBefore } from 'date-fns';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import useMarginTopBottomSpacing from '../../../components/hooks/useMarginTopBottomSpacing';
@@ -15,6 +15,7 @@ import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { toggleEventForm, persistEvent } from '../../../modules/events';
 import Alert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
 
 // Panel Styles Overriding
 const ExpansionPanel = withStyles({
@@ -100,6 +101,7 @@ const EventForm = () => {
   const [endDate, setEndDate] = useState(endEventDate);
   const [description, setDescription] = useState('');
   const [validationErrors, setValidationErrors] = useState(null);
+  const [isShowSnackbar, setIsShowSnackbar] = useState(false);
   const isValidForm = !validationErrors || Object.keys(validationErrors).length === 0;
 
   // Effects
@@ -139,6 +141,7 @@ const EventForm = () => {
       await persistEvent(event)(dispatch);
       handleToggleEventForm();
       resetForm();
+      setIsShowSnackbar(true);
     }
   };
 
@@ -162,6 +165,10 @@ const EventForm = () => {
     setEndDate(endEventDate);
     setDescription('');
     setValidationErrors([]);
+  };
+
+  const handleCloseSnackbar = () => {
+    setIsShowSnackbar(false);
   };
 
   return (
@@ -223,7 +230,6 @@ const EventForm = () => {
                   size={'small'}
                   className={classes.saveButton}
                   type={'submit'}
-                  onClick={handleSave}
                   disabled={!isValidForm}
                 >
                   Save
@@ -234,6 +240,16 @@ const EventForm = () => {
         </ExpansionPanelDetails>
         {error && <Alert severity="error">${error}</Alert>}
       </ExpansionPanel>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        open={isShowSnackbar}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert severity="success" onClose={handleCloseSnackbar}>
+          The event has been created
+        </Alert>
+      </Snackbar>
     </>
   );
 };

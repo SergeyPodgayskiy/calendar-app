@@ -1,7 +1,7 @@
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Box } from '@material-ui/core';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import DayHeaderCell from './daysViewTypeHeader/DayHeaderCell';
 import dateViewTypes from '../../../../../utils/dateViewTypes';
 import { eachDayOfWeekForDate } from '../../../../../utils/calendarGridUtil';

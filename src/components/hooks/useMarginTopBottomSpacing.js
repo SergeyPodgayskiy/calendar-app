@@ -1,5 +1,3 @@
-import React from 'react';
-
 const useMarginTopBottomSpacing = (theme, value) => {
   return {
     marginTop: theme.spacing(value),

@@ -9,7 +9,6 @@ import { eachDayOfWeekForDate, hours } from '../../../../utils/calendarGridUtil'
 import HourRow from './daysViewTypeGrid/HourRow';
 import { useSelector } from 'react-redux';
 import dateViewTypes from '../../../../utils/dateViewTypes';
-import { startOfWeek, endOfWeek, eachDayOfInterval } from 'date-fns';
 
 const useStyles = makeStyles(theme => ({
   daysHeader: {},

@@ -8,7 +8,7 @@ import Header from './calendar/Header';
 import Container from '@material-ui/core/Container';
 import DateFnsUtils from '@date-io/date-fns';
 import usePaddingTopBottomSpacing from '../components/hooks/usePaddingTopBottomSpacing';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import useInterval from '../components/hooks/useInterval';
 import { setCurrentDate } from '../modules/calendar';
 import { UPDATE_CURRENT_DATE_DELAY } from '../config';

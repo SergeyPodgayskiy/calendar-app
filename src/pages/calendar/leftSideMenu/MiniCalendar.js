@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Calendar } from '@material-ui/pickers';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSelectedDate } from '../../../modules/calendar';

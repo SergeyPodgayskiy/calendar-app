@@ -1,5 +1,3 @@
-import React from 'react';
-
 const usePaddingTopBottomSpacing = (theme, value) => {
   return {
     paddingTop: theme.spacing(value),

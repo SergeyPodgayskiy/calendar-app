@@ -1,5 +1,3 @@
-import React from 'react';
-
 const useMarginLeftRightSpacing = (theme, value) => {
   return {
     marginLeft: theme.spacing(value),
