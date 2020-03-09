@@ -248,7 +248,7 @@ const EventForm = () => {
                 select
                 value={calendarType.value}
                 onChange={handleSetCalendarType}
-                label="Calendar type"
+                label="Calendar"
                 className={classes.formLine}
               >
                 {calendarTypeOptions.map(option => (
