@@ -3,6 +3,9 @@ import { Box } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { format, isToday } from 'date-fns';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSelectedDate, setViewType } from '../../../../../../modules/calendar';
+import dateViewTypes from '../../../../../../utils/dateViewTypes';
 
 const useStyles = makeStyles(theme => ({
   circle: {
@@ -16,10 +19,16 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     alignContent: 'center',
     backgroundColor: 'none',
+    cursor: 'pointer',
   },
   activeCircle: {
     backgroundColor: theme.palette.primary.main,
     color: 'white',
+  },
+  passiveCircle: {
+    '&:hover': {
+      backgroundColor: theme.palette.action.hover,
+    },
   },
   dayNameCaption: {
     lineHeight: '1.4rem',
@@ -40,10 +49,19 @@ const dayOfMonthNumberFormat = 'd';
 
 const DayHeaderCell = ({ day }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const viewType = useSelector(state => state.calendar.viewType);
 
   const selectedDayOfWeekName = format(day, dayOfWeekNameFormat);
   const selectedDateOfMonth = format(day, dayOfMonthNumberFormat);
   const isSelectedDateIsToday = isToday(day);
+
+  const handleSelectDate = () => {
+    if (viewType !== dateViewTypes.day) {
+      setSelectedDate(day)(dispatch);
+      setViewType(dateViewTypes.day)(dispatch);
+    }
+  };
 
   return (
     <>
@@ -51,7 +69,10 @@ const DayHeaderCell = ({ day }) => {
         <Box className={`${classes.dayNameCaption} ${isSelectedDateIsToday ? classes.activeDayNameCaption : ''}`}>
           {selectedDayOfWeekName}
         </Box>
-        <Box className={`${classes.circle} ${isSelectedDateIsToday ? classes.activeCircle : ''}`}>
+        <Box
+          className={`${classes.circle} ${isSelectedDateIsToday ? classes.activeCircle : classes.passiveCircle}`}
+          onClick={handleSelectDate}
+        >
           <Typography variant="caption" display={'block'} className={classes.dayNumberCaption}>
             {selectedDateOfMonth}
           </Typography>
