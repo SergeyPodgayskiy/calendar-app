@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import usePaddingTopBottomSpacing from '../../components/hooks/usePaddingTopBottomSpacing';

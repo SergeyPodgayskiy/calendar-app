@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const HourRow = ({ hour, period, days }) => {
+const HourRow = ({ hour, period, cells: days }) => {
   const classes = useStyles();
 
   return (

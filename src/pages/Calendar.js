@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@material-ui/core/Box';
 import LeftSideMenu from '../pages/calendar/LeftSideMenu';
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,6 +12,9 @@ import { useDispatch } from 'react-redux';
 import useInterval from '../components/hooks/useInterval';
 import { setCurrentDate } from '../modules/calendar';
 import { UPDATE_CURRENT_DATE_DELAY } from '../config';
+import { fetchEvents } from '../modules/events';
+import Alert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -31,10 +34,26 @@ const useStyles = makeStyles(theme => ({
 const Calendar = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [isShowErrorSnackbar, setIsShowErrorSnackbar] = useState(false);
 
   useInterval(() => {
     setCurrentDate(new Date())(dispatch);
   }, UPDATE_CURRENT_DATE_DELAY);
+
+  useEffect(() => {
+    fetchEvents()(dispatch)
+      .then(events => {
+        console.debug('loaded events', events);
+      })
+      .catch(error => {
+        setIsShowErrorSnackbar(true);
+        console.error(error);
+      });
+  }, []);
+
+  const handleCloseSnackbar = () => {
+    setIsShowErrorSnackbar(false);
+  };
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -51,6 +70,16 @@ const Calendar = () => {
           </Box>
         </Box>
       </Container>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        open={isShowErrorSnackbar}
+        autoHideDuration={5000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert severity="error" onClose={handleCloseSnackbar}>
+          We couldn't load your events. Please refresh the page.
+        </Alert>
+      </Snackbar>
     </MuiPickersUtilsProvider>
   );
 };

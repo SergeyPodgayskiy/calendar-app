@@ -11,18 +11,9 @@ import { useSelector } from 'react-redux';
 import dateViewTypes from '../../../../utils/dateViewTypes';
 
 const useStyles = makeStyles(theme => ({
-  daysHeader: {},
-  hourRowWrapper: {
-    minHeight: '48px',
-    height: 'auto',
-    color: theme.palette.text.secondary,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    lineHeight: 'initial',
-  },
   hoursGrid: {
     ...usePaddingLeftRightSpacing(theme, 1),
+    position: 'relative',
   },
   divider: {
     marginBottom: theme.spacing(1),
@@ -33,6 +24,7 @@ const DaysViewTypeGrid = () => {
   const classes = useStyles();
   const viewType = useSelector(state => state.calendar.viewType);
   const selectedDate = useSelector(state => state.calendar.selectedDate);
+  const events = useSelector(state => state.events.items);
 
   let daysToRender = [selectedDate];
   if (viewType === dateViewTypes.week) {
@@ -47,7 +39,7 @@ const DaysViewTypeGrid = () => {
       <Divider className={classes.divider} />
       <Box className={classes.hoursGrid}>
         {hours.map(({ hour, period }) => {
-          return <HourRow key={`${hour}-${period}`} hour={hour} period={period} days={daysToRender} />;
+          return <HourRow key={`${hour}-${period}`} hour={hour} period={period} cells={daysToRender} />;
         })}
       </Box>
     </>
