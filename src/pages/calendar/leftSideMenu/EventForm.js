@@ -287,7 +287,7 @@ const EventForm = () => {
         onClose={handleCloseSnackbar}
       >
         <Alert severity="success" onClose={handleCloseSnackbar}>
-          The event has been created
+          Event saved
         </Alert>
       </Snackbar>
     </>
