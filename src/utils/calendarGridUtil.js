@@ -1,108 +1,18 @@
-import { eachDayOfInterval, endOfWeek, startOfWeek } from 'date-fns';
+import { eachDayOfInterval, endOfWeek, getMinutes, startOfWeek } from 'date-fns';
 
-const AM_HOUR_PERIOD = 'AM';
-const PM_HOUR_PERIOD = 'PM';
+const hours = generateArrayOfHours();
 
-export const hours = [
-  {
-    hour: 12,
-    period: AM_HOUR_PERIOD,
-  },
-  {
-    hour: 1,
-    period: AM_HOUR_PERIOD,
-  },
-  {
-    hour: 2,
-    period: AM_HOUR_PERIOD,
-  },
-  {
-    hour: 3,
-    period: AM_HOUR_PERIOD,
-  },
-  {
-    hour: 4,
-    period: AM_HOUR_PERIOD,
-  },
-  {
-    hour: 5,
-    period: AM_HOUR_PERIOD,
-  },
-  {
-    hour: 6,
-    period: AM_HOUR_PERIOD,
-  },
-  {
-    hour: 7,
-    period: AM_HOUR_PERIOD,
-  },
-  {
-    hour: 8,
-    period: AM_HOUR_PERIOD,
-  },
-  {
-    hour: 9,
-    period: AM_HOUR_PERIOD,
-  },
-  {
-    hour: 10,
-    period: AM_HOUR_PERIOD,
-  },
-  {
-    hour: 11,
-    period: AM_HOUR_PERIOD,
-  },
-  {
-    hour: 12,
-    period: PM_HOUR_PERIOD,
-  },
-  {
-    hour: 1,
-    period: PM_HOUR_PERIOD,
-  },
-  {
-    hour: 2,
-    period: PM_HOUR_PERIOD,
-  },
-  {
-    hour: 3,
-    period: PM_HOUR_PERIOD,
-  },
-  {
-    hour: 4,
-    period: PM_HOUR_PERIOD,
-  },
-  {
-    hour: 5,
-    period: PM_HOUR_PERIOD,
-  },
-  {
-    hour: 6,
-    period: PM_HOUR_PERIOD,
-  },
-  {
-    hour: 7,
-    period: PM_HOUR_PERIOD,
-  },
-  {
-    hour: 8,
-    period: PM_HOUR_PERIOD,
-  },
-  {
-    hour: 9,
-    period: PM_HOUR_PERIOD,
-  },
-  {
-    hour: 10,
-    period: PM_HOUR_PERIOD,
-  },
-  {
-    hour: 11,
-    period: PM_HOUR_PERIOD,
-  },
-];
+function generateArrayOfHours() {
+  let hours = [];
 
-export function eachDayOfWeekForDate(date) {
+  for (let hour = 0; hour < 24; hour++) {
+    hours.push(hour);
+  }
+
+  return hours;
+}
+
+function eachDayOfWeekForDate(date) {
   const startDayOfWeek = startOfWeek(date);
   const endDayOfWeek = endOfWeek(date);
 
@@ -113,3 +23,14 @@ export function eachDayOfWeekForDate(date) {
 
   return weekDays;
 }
+
+function calculateTimeIndicatorPositionShift(htmlElement, currentDate) {
+  console.log('htmlEl', htmlElement);
+  console.log('currentDate', currentDate);
+  if (htmlElement && currentDate) {
+    const DOMRect = htmlElement.getClientRects()[0];
+    return (DOMRect.height / 60) * getMinutes(currentDate);
+  }
+}
+
+export { hours, eachDayOfWeekForDate, calculateTimeIndicatorPositionShift };

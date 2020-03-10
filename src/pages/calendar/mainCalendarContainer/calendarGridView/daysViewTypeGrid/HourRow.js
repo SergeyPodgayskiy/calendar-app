@@ -11,17 +11,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const HourRow = ({ hour, period, cells: days }) => {
+const HourRow = ({ hour, cells: days }) => {
   const classes = useStyles();
 
   return (
     <Box className={classes.hourRowWrapper}>
-      <LeftSideScaleHourCell hour={hour} hourPeriod={period} />
+      <LeftSideScaleHourCell hour={hour} />
       {days &&
         days.map((day, index) => {
           return (
             <Box display={'flex'} flexGrow={'1'} key={`${day}${index}`}>
-              <HourCell hour={hour} period={period} day={day} />
+              <HourCell hour={hour} day={day} />
               {index !== days.length - 1 && <Divider orientation={'vertical'} flexItem />}
             </Box>
           );

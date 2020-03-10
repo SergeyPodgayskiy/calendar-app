@@ -18,13 +18,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-// Ex; hour = 1, hourPeriod = AM
-const LeftSideScaleHourCell = ({ hour, hourPeriod }) => {
+const LeftSideScaleHourCell = ({ hour }) => {
   const classes = useStyles();
 
   return (
     <Typography variant="overline" display="block" className={classes.scaleCellWrapper}>
-      {hour} {hourPeriod}
+      {hour}
     </Typography>
   );
 };

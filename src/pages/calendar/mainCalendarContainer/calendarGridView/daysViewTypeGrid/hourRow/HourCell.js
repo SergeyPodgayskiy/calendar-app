@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Box } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
@@ -7,7 +7,8 @@ import Divider from '@material-ui/core/Divider';
 import usePaddingLeftRightSpacing from '../../../../../../components/hooks/usePaddingLeftRightSpacing';
 import { useSelector } from 'react-redux';
 import TimeIndicator from './hourCell/TimeIndicator';
-import { isToday, set } from 'date-fns';
+import { isToday, set, isSameHour } from 'date-fns';
+import { calculateTimeIndicatorPositionShift } from '../../../../../../utils/calendarGridUtil';
 
 const useStyles = makeStyles(theme => ({
   cellWrapper: {
@@ -28,23 +29,29 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-// Ex; hour = 1, hourPeriod = AM, day = Date()
-const HourCell = ({ hour, period, day }) => {
+const HourCell = ({ hour, day }) => {
   const classes = useStyles();
-  // const cellDate =
-  const currentDate = useSelector(state => state.calendar.currentDate);
   const cellElement = useRef();
-  let timeIndicatorPosition;
+  const cellDate = set(day, {
+    hours: hour,
+    minutes: 0,
+    seconds: 0,
+    milliseconds: 0,
+  });
+  const currentDate = useSelector(state => state.calendar.currentDate);
+  const isCurrentDateWithinInterval = isSameHour(currentDate, cellDate);
+  let positionShift;
 
-  useEffect(() => {}, [currentDate]);
-
-  const calcTimeIndicatorPosition = () => {};
+  useEffect(() => {
+    positionShift =
+      isCurrentDateWithinInterval && calculateTimeIndicatorPositionShift(cellElement.current, currentDate);
+  });
 
   return (
     <Typography variant="overline" className={classes.cellWrapper} ref={cellElement}>
-      <Box className={classes.cellContent}>{day.toString()}</Box>
+      <Box className={classes.cellContent}></Box>
       <Divider />
-      {isToday(day) && <TimeIndicator />}
+      {isToday(day) && isCurrentDateWithinInterval && <TimeIndicator positionShift={positionShift} />}
     </Typography>
   );
 };

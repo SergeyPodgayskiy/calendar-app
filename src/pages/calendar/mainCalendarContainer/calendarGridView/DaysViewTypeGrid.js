@@ -38,8 +38,8 @@ const DaysViewTypeGrid = () => {
       </Box>
       <Divider className={classes.divider} />
       <Box className={classes.hoursGrid}>
-        {hours.map(({ hour, period }) => {
-          return <HourRow key={`${hour}-${period}`} hour={hour} period={period} cells={daysToRender} />;
+        {hours.map(hour => {
+          return <HourRow key={hour} hour={hour} cells={daysToRender} />;
         })}
       </Box>
     </>
