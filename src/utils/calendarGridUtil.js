@@ -24,12 +24,10 @@ function eachDayOfWeekForDate(date) {
   return weekDays;
 }
 
-function calculateTimeIndicatorPositionShift(htmlElement, currentDate) {
-  console.log('htmlEl', htmlElement);
-  console.log('currentDate', currentDate);
-  if (htmlElement && currentDate) {
-    const DOMRect = htmlElement.getClientRects()[0];
-    return (DOMRect.height / 60) * getMinutes(currentDate);
+function calculateTimeIndicatorPositionShift(htmlElementRect, currentDate) {
+  console.debug('elementRect', htmlElementRect);
+  if (htmlElementRect && currentDate) {
+    return (htmlElementRect.height / 60) * getMinutes(currentDate);
   }
 }
 

@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import TimeIndicator from './hourCell/TimeIndicator';
 import { isToday, set, isSameHour } from 'date-fns';
 import { calculateTimeIndicatorPositionShift } from '../../../../../../utils/calendarGridUtil';
+import useClientRect from '../../../../../../components/hooks/useClientRect';
 
 const useStyles = makeStyles(theme => ({
   cellWrapper: {
@@ -31,7 +32,7 @@ const useStyles = makeStyles(theme => ({
 
 const HourCell = ({ hour, day }) => {
   const classes = useStyles();
-  const cellElement = useRef();
+  const [cellRect, setCellRect] = useClientRect();
   const cellDate = set(day, {
     hours: hour,
     minutes: 0,
@@ -40,15 +41,10 @@ const HourCell = ({ hour, day }) => {
   });
   const currentDate = useSelector(state => state.calendar.currentDate);
   const isCurrentDateWithinInterval = isSameHour(currentDate, cellDate);
-  let positionShift;
-
-  useEffect(() => {
-    positionShift =
-      isCurrentDateWithinInterval && calculateTimeIndicatorPositionShift(cellElement.current, currentDate);
-  });
+  const positionShift = isCurrentDateWithinInterval && calculateTimeIndicatorPositionShift(cellRect, currentDate);
 
   return (
-    <Typography variant="overline" className={classes.cellWrapper} ref={cellElement}>
+    <Typography variant="overline" className={classes.cellWrapper} ref={setCellRect}>
       <Box className={classes.cellContent}></Box>
       <Divider />
       {isToday(day) && isCurrentDateWithinInterval && <TimeIndicator positionShift={positionShift} />}

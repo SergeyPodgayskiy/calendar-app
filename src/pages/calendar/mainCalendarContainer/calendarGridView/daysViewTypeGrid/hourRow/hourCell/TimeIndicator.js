@@ -21,6 +21,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: 'red',
     position: 'absolute',
     top: -4,
+    left: -5
   },
 }));
 
