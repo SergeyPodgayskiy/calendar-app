@@ -1,6 +1,7 @@
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Typography from '@material-ui/core/Typography';
+import { convertHourFormat24To12 } from '../../../../../utils/calendarGridUtil';
 
 const useStyles = makeStyles(theme => ({
   scaleCellWrapper: {
@@ -23,7 +24,7 @@ const LeftSideScaleHourCell = ({ hour }) => {
 
   return (
     <Typography variant="overline" display="block" className={classes.scaleCellWrapper}>
-      {hour}
+      {convertHourFormat24To12(hour)}
     </Typography>
   );
 };

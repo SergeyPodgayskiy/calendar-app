@@ -21,11 +21,10 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: 'red',
     position: 'absolute',
     top: -4,
-    left: -5
+    left: -5,
   },
 }));
 
-// Default bottom shift
 const TimeIndicator = ({ positionShift }) => {
   const theme = useTheme();
   const classes = useStyles();

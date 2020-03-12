@@ -5,7 +5,7 @@ const hours = generateArrayOfHours();
 function generateArrayOfHours() {
   let hours = [];
 
-  for (let hour = 0; hour < 24; hour++) {
+  for (let hour = 1; hour <= 24; hour++) {
     hours.push(hour);
   }
 
@@ -31,4 +31,11 @@ function calculateTimeIndicatorPositionShift(htmlElementRect, currentDate) {
   }
 }
 
-export { hours, eachDayOfWeekForDate, calculateTimeIndicatorPositionShift };
+function convertHourFormat24To12(hour) {
+  const convertedHour = hour % 12 || 12;
+  const period = hour < 12 ? 'AM' : 'PM';
+
+  return `${convertedHour} ${period}`;
+}
+
+export { hours, eachDayOfWeekForDate, calculateTimeIndicatorPositionShift, convertHourFormat24To12 };
