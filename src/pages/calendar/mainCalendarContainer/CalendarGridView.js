@@ -8,7 +8,7 @@ import MonthViewTypeGrid from './calendarGridView/MonthViewTypeGrid';
 const CalendarGridView = () => {
   const viewType = useSelector(state => state.calendar.viewType);
 
-  if (viewType === dateViewTypes.day || dateViewTypes.week) {
+  if (viewType === dateViewTypes.day || viewType === dateViewTypes.week) {
     return <DaysViewTypeGrid />;
   }
 

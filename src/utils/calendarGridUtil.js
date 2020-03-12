@@ -1,6 +1,16 @@
-import { eachDayOfInterval, endOfWeek, getMinutes, startOfWeek } from 'date-fns';
+import {
+  eachDayOfInterval,
+  eachWeekOfInterval,
+  endOfMonth,
+  endOfWeek,
+  getMinutes,
+  startOfMonth,
+  startOfWeek,
+} from 'date-fns';
 
 const hours = generateArrayOfHours();
+
+const weekdayShortNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SUT'];
 
 function generateArrayOfHours() {
   let hours = [];
@@ -16,12 +26,20 @@ function eachDayOfWeekForDate(date) {
   const startDayOfWeek = startOfWeek(date);
   const endDayOfWeek = endOfWeek(date);
 
-  const weekDays = eachDayOfInterval({
+  return eachDayOfInterval({
     start: startDayOfWeek,
     end: endDayOfWeek,
   });
+}
 
-  return weekDays;
+function eachWeekOfMonthForDate(date) {
+  const startDayOfMonth = startOfMonth(date);
+  const endDayOfMonth = endOfMonth(date);
+
+  return eachWeekOfInterval({
+    start: startDayOfMonth,
+    end: endDayOfMonth,
+  });
 }
 
 function calculateTimeIndicatorPositionShift(htmlElementRect, currentDate) {
@@ -38,4 +56,11 @@ function convertHourFormat24To12(hour) {
   return `${convertedHour} ${period}`;
 }
 
-export { hours, eachDayOfWeekForDate, calculateTimeIndicatorPositionShift, convertHourFormat24To12 };
+export {
+  hours,
+  weekdayShortNames,
+  eachDayOfWeekForDate,
+  calculateTimeIndicatorPositionShift,
+  convertHourFormat24To12,
+  eachWeekOfMonthForDate,
+};
