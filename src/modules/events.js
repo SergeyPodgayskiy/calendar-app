@@ -68,7 +68,7 @@ export function fetchEvents() {
     dispatch({ type: EVENTS_FETCHING });
     try {
       const events = await localStorageApi.fetchAsync(EVENTS);
-      dispatch({ type: EVENTS_FETCH_SUCCESS, payload: events });
+      dispatch({ type: EVENTS_FETCH_SUCCESS, payload: events ? events : [] });
       return events;
     } catch (error) {
       dispatch({ type: EVENTS_FETCH_FAIL, payload: new Error('Failed to get your events. Please refresh the page') });

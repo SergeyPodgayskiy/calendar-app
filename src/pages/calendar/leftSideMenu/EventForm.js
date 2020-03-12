@@ -107,7 +107,6 @@ const EventForm = () => {
   const currentSelectedDate = useSelector(state => state.calendar.selectedDate);
   const endEventDate = addHours(currentSelectedDate, DEFAULT_EVENT_HOURS_DIFFERENCE);
   const isExpandedForm = useSelector(state => state.events.isExpandedEventForm);
-  const error = useSelector(state => state.events.error);
 
   // Form State
   const [title, setTitle] = useState('');
@@ -278,7 +277,6 @@ const EventForm = () => {
             </FormGroup>
           </form>
         </ExpansionPanelDetails>
-        {error && <Alert severity="error">${error}</Alert>}
       </ExpansionPanel>
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
