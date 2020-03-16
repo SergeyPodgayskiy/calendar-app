@@ -49,6 +49,12 @@ function calculateTimeIndicatorPositionShift(htmlElementRect, currentDate) {
   }
 }
 
+function getWidthInPercent(childRect, parentRect) {
+  if (childRect && parentRect) {
+    return (childRect.width / parentRect.width) * 100;
+  }
+}
+
 function convertHourFormat24To12(hour) {
   const convertedHour = hour % 12 || 12;
   const period = hour < 12 ? 'AM' : 'PM';
@@ -63,4 +69,5 @@ export {
   calculateTimeIndicatorPositionShift,
   convertHourFormat24To12,
   eachWeekOfMonthForDate,
+  getWidthInPercent,
 };
