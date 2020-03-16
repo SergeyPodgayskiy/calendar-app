@@ -23,8 +23,12 @@ const WeekdayNamesHeader = () => {
 
   return (
     <Box className={classes.weekdayNamesHeader}>
-      {weekdayShortNames.map(weekdayName => {
-        return <Box className={classes.weekdayCell}>{weekdayName}</Box>;
+      {weekdayShortNames.map((weekdayName, index) => {
+        return (
+          <Box key={weekdayName + index} className={classes.weekdayCell}>
+            {weekdayName}
+          </Box>
+        );
       })}
     </Box>
   );

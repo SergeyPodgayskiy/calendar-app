@@ -23,10 +23,10 @@ const WeekOfMonthRow = ({ startOfWeek, isLastWeek }) => {
     <Box className={classes.weekOfMonth}>
       {daysOfWeek.map((day, dayNumber) => {
         return (
-          <>
-            <WeekdayCell key={day} day={day} isInLastWeek={isLastWeek} />
+          <React.Fragment key={day}>
+            <WeekdayCell day={day} isInLastWeek={isLastWeek} />
             {dayNumber !== 6 && <Divider orientation={'vertical'} />}
-          </>
+          </React.Fragment>
         );
       })}
     </Box>

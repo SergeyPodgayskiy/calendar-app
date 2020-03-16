@@ -3,7 +3,7 @@ import { Box } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import useMarginTopBottomSpacing from '../../../../../../components/hooks/useMarginTopBottomSpacing';
 import Divider from '@material-ui/core/Divider';
-import { isToday } from 'date-fns';
+import { isToday, isFirstDayOfMonth, format } from 'date-fns';
 import { useDispatch } from 'react-redux';
 import { setSelectedDate, setViewType } from '../../../../../../modules/calendar';
 import dateViewTypes from '../../../../../../utils/dateViewTypes';
@@ -52,6 +52,7 @@ const useStyles = makeStyles(theme => ({
 const WeekdayCell = ({ day, isInLastWeek }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const formattedNameOfMonth = isFirstDayOfMonth(day) ? format(day, 'MMM') : null;
 
   const handleSelectDate = () => {
     setSelectedDate(day)(dispatch);
@@ -65,7 +66,7 @@ const WeekdayCell = ({ day, isInLastWeek }) => {
           className={`${classes.cellHeaderDateNumber} ${isToday(day) ? classes.activeDate : ''}`}
           onClick={handleSelectDate}
         >
-          {day.getDate()}
+          {formattedNameOfMonth} {day.getDate()}
         </Box>
       </Box>
       <Box className={classes.content}>events</Box>
