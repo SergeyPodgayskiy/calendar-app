@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     letterSpacing: '.3px',
     whiteSpace: 'nowrap',
     width: 'max-content',
-    minWidth: 24,
+    minWidth: 40,
     textAlign: 'center',
     display: 'inline-block',
     paddingTop: 3,
