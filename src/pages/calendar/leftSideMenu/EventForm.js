@@ -4,7 +4,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import TextField from '@material-ui/core/TextField';
 import { DateTimePicker } from '@material-ui/pickers';
 import { useDispatch, useSelector } from 'react-redux';
-import { addHours, isBefore } from 'date-fns';
+import { addHours, isBefore, formatISO } from 'date-fns';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import useMarginTopBottomSpacing from '../../../components/hooks/useMarginTopBottomSpacing';
@@ -106,7 +106,7 @@ const EventForm = () => {
   const dispatch = useDispatch();
   const currentSelectedDate = useSelector(state => state.calendar.selectedDate);
   const endEventDate = addHours(currentSelectedDate, DEFAULT_EVENT_HOURS_DIFFERENCE);
-  const isExpandedForm = useSelector(state => state.events.isExpandedEventForm);
+  const isExpandedEventForm = useSelector(state => state.events.isExpandedEventForm);
 
   // Form State
   const [title, setTitle] = useState('');
@@ -120,10 +120,10 @@ const EventForm = () => {
 
   // Effects
   useEffect(() => {
-    if (isExpandedForm) {
+    if (isExpandedEventForm) {
       handleStartDate(currentSelectedDate);
     }
-  }, [currentSelectedDate, isExpandedForm]);
+  }, [currentSelectedDate, isExpandedEventForm]);
 
   useEffect(() => {
     const validationErrors = validateForm();
@@ -155,8 +155,8 @@ const EventForm = () => {
     if (isValidForm) {
       const event = {
         title,
-        startDate,
-        endDate,
+        startDate: formatISO(startDate),
+        endDate: formatISO(endDate),
         description,
         calendarType,
       };
@@ -196,7 +196,7 @@ const EventForm = () => {
 
   return (
     <>
-      <ExpansionPanel expanded={isExpandedForm} onChange={handleToggleEventForm}>
+      <ExpansionPanel expanded={isExpandedEventForm} onChange={handleToggleEventForm}>
         <ExpansionPanelSummary expandIcon={<AddIcon style={{ color: 'white' }} />} aria-controls={'panel-form'}>
           EVENT
         </ExpansionPanelSummary>
@@ -253,7 +253,7 @@ const EventForm = () => {
                 {calendarTypeOptions.map(option => (
                   <MenuItem key={option.value} value={option.value}>
                     <Box display="flex" alignItems="center">
-                      <Box className={classes.calendarTypeCircle} style={{ backgroundColor: option.color }}></Box>
+                      <Box className={classes.calendarTypeCircle} style={{ backgroundColor: option.color }} />
                       <Box className={classes.calendarTypeText}>{option.value}</Box>
                     </Box>
                   </MenuItem>

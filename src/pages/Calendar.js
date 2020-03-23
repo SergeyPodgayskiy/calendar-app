@@ -36,7 +36,6 @@ const Calendar = () => {
   const dispatch = useDispatch();
   const [isShowErrorSnackbar, setIsShowErrorSnackbar] = useState(false);
   const error = useSelector(state => state.events.error);
-  const events = useSelector(state => state.events.items);
 
   useInterval(() => {
     setCurrentDate(new Date())(dispatch);

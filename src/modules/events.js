@@ -1,5 +1,5 @@
 import localStorageApi from '../utils/localStorageApi';
-import { EVENTS } from '../constants/constants';
+import { EVENT_FORM_NAME, EVENTS } from '../constants/constants';
 
 // Action Types
 const EVENTS_FETCHING = 'events:fetching';
@@ -28,6 +28,7 @@ export default function reducer(state = initialState, { type, payload }) {
       };
     case EVENTS_FETCH_SUCCESS:
       return {
+        ...state,
         items: [...payload],
         isLoading: false,
         error: null,
@@ -41,7 +42,7 @@ export default function reducer(state = initialState, { type, payload }) {
     case EVENTS_PERSIST_SUCCESS:
       return {
         ...state,
-        items: payload,
+        items: [...payload],
         isLoading: false,
         error: null,
       };
@@ -80,9 +81,8 @@ export function fetchEvents() {
 export function persistEvent(event) {
   return async dispatch => {
     try {
-      let eventsObj = localStorageApi.get(EVENTS);
-      let eventsArr = eventsObj ? [...eventsObj] : [];
-      eventsArr.push(event);
+      const eventsObj = localStorageApi.get(EVENTS);
+      let eventsArr = eventsObj ? [...eventsObj, event] : [event];
       eventsArr = await localStorageApi.persistAsync(EVENTS, eventsArr);
       dispatch({ type: EVENTS_PERSIST_SUCCESS, payload: eventsArr });
     } catch (error) {

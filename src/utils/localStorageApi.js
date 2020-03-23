@@ -10,7 +10,7 @@ const localStorageApi = {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(this.get(key));
-      }, 2000);
+      }, 1000);
     });
   },
   persistAsync(key, item) {

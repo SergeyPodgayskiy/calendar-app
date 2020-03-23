@@ -64,10 +64,10 @@ const WeekdayCell = ({ day, isInLastWeek, parentRect, dayNumberInRow }) => {
 
   const formattedNameOfMonth = isFirstDayOfMonth(day) ? format(day, 'MMM') : null;
 
-  let eventBlocksToRender;
+  let eventLinesToRender;
 
   if (cellWidthInPercent) {
-    eventBlocksToRender = eventsOfThisDay?.map(event => {
+    eventLinesToRender = eventsOfThisDay?.map(event => {
       const startDate = parseISO(event.startDate);
       const endDate = parseISO(event.endDate);
       const eventDurationInDays = eachDayOfInterval({
@@ -88,14 +88,13 @@ const WeekdayCell = ({ day, isInLastWeek, parentRect, dayNumberInRow }) => {
       }
 
       return (
-        <React.Fragment key={startDate.getSeconds() + endDate.getSeconds()}>
-          <EventLine
-            event={event}
-            left={leftShift}
-            width={eventBlockWidthInPercent}
-            isOneOrMoreDays={isAllDayEvent || eventDurationInDays > 0}
-          />
-        </React.Fragment>
+        <EventLine
+          key={startDate + endDate}
+          event={event}
+          left={leftShift}
+          width={eventBlockWidthInPercent}
+          isOneOrMoreDays={isAllDayEvent || eventDurationInDays > 0}
+        />
       );
     });
   }
@@ -115,7 +114,7 @@ const WeekdayCell = ({ day, isInLastWeek, parentRect, dayNumberInRow }) => {
           {formattedNameOfMonth} {day.getDate()}
         </Box>
       </Box>
-      <Box className={classes.content}>{eventBlocksToRender}</Box>
+      <Box className={classes.content}>{eventLinesToRender}</Box>
       {!isInLastWeek && <Divider />}
     </Box>
   );
