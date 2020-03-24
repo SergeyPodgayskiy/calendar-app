@@ -28,8 +28,8 @@ const useStyles = makeStyles(theme => ({
 
 const MonthViewTypeGrid = () => {
   const classes = useStyles();
-  const selectedDate = useSelector(state => state.calendar.selectedDate);
   const dispatch = useDispatch();
+  const selectedDate = useSelector(state => state.calendar.selectedDate);
   const eachWeekOfMonth = eachWeekOfMonthForDate(selectedDate);
 
   const handleOnWheel = debounce(e => {

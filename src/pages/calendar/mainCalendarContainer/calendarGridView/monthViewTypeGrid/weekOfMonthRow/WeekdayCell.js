@@ -7,7 +7,7 @@ import { isToday, isFirstDayOfMonth, format, isSameDay, parseISO, eachDayOfInter
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedDate, setViewType } from '../../../../../../modules/calendar';
 import dateViewTypes from '../../../../../../utils/dateViewTypes';
-import EventLine from './weekdayCell/EventLine';
+import EventLine from './EventLine';
 import UseClientRect from '../../../../../../components/hooks/useClientRect';
 import { getWidthInPercent } from '../../../../../../utils/calendarGridUtil';
 
@@ -46,27 +46,22 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: '#3f51b5',
     },
   },
-  content: {
-    flexGrow: 1,
-    padding: 5,
-  },
 }));
 
 const WeekdayCell = ({ day, isInLastWeek, parentRect, dayNumberInRow }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const formattedNameOfMonth = isFirstDayOfMonth(day) ? format(day, 'MMM') : null;
 
-  const events = useSelector(state => state.events.items);
+  /*  const events = useSelector(state => state.events.items);
   const eventsOfThisDay = events.filter(event => isSameDay(parseISO(event.startDate), day));
 
   const [cellRect, setCellRect] = UseClientRect();
-  const cellWidthInPercent = getWidthInPercent(cellRect, parentRect);
-
-  const formattedNameOfMonth = isFirstDayOfMonth(day) ? format(day, 'MMM') : null;
+  const cellWidthInPercent = getWidthInPercent(cellRect, parentRect);*/
 
   let eventLinesToRender;
 
-  if (cellWidthInPercent) {
+  /*if (cellWidthInPercent) {
     eventLinesToRender = eventsOfThisDay?.map(event => {
       const startDate = parseISO(event.startDate);
       const endDate = parseISO(event.endDate);
@@ -97,7 +92,7 @@ const WeekdayCell = ({ day, isInLastWeek, parentRect, dayNumberInRow }) => {
         />
       );
     });
-  }
+  }*/
 
   const handleSelectDate = () => {
     setSelectedDate(day)(dispatch);
@@ -105,7 +100,7 @@ const WeekdayCell = ({ day, isInLastWeek, parentRect, dayNumberInRow }) => {
   };
 
   return (
-    <Box className={classes.dayOfMonthCellWrapper} ref={setCellRect}>
+    <Box className={classes.dayOfMonthCellWrapper}>
       <Box className={classes.cellHeader}>
         <Box
           className={`${classes.cellHeaderDateNumber} ${isToday(day) ? classes.activeDate : ''}`}
@@ -114,8 +109,6 @@ const WeekdayCell = ({ day, isInLastWeek, parentRect, dayNumberInRow }) => {
           {formattedNameOfMonth} {day.getDate()}
         </Box>
       </Box>
-      <Box className={classes.content}>{eventLinesToRender}</Box>
-      {!isInLastWeek && <Divider />}
     </Box>
   );
 };

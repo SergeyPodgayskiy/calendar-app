@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { getHours, parseISO } from 'date-fns';
-import { convertHourFormat24To12 } from '../../../../../../../utils/calendarGridUtil';
+import { convertHourFormat24To12 } from '../../../../../../utils/calendarGridUtil';
 
 const useStyles = makeStyles(theme => ({
   eventLineWrapper: {
@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
     cursor: 'pointer',
     color: 'rgba(32,33,36,0.38)',
     fontWeight: 500,
-    height: 22,
+    height: '2em',
     padding: '0 8px',
     fontSize: 12,
     borderRadius: 4,
@@ -50,6 +50,7 @@ const useStyles = makeStyles(theme => ({
 const EventLine = ({ event, left, width, isOneOrMoreDays }) => {
   const classes = useStyles();
   const formattedTime = convertHourFormat24To12(getHours(parseISO(event.startDate)));
+
   return (
     <Box className={classes.eventLineWrapper} style={{ width: `${width}%`, left: `${left}%` }}>
       <Box
