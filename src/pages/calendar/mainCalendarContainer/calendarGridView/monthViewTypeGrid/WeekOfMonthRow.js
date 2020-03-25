@@ -6,7 +6,8 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import Divider from '@material-ui/core/Divider';
 import useClientRect from '../../../../../components/hooks/useClientRect';
 import { useSelector } from 'react-redux';
-import EventBlock from './weekOfMonthRow/EventBlock';
+import EventBlock from './weekOfMonthRow/eventsRow/eventsCell/EventBlock';
+import EventsRow from './weekOfMonthRow/EventsRow';
 
 const MAX_EVENTS_ROW_HEIGHT_EM = '5em';
 
@@ -25,15 +26,6 @@ const useStyles = makeStyles(theme => ({
     left: 0,
     display: 'flex',
   },
-  eventsPresentationWrapper: {
-    marginTop: 40,
-    flex: '1 1 0%',
-  },
-  events: {
-    display: 'flex',
-    position: 'relative',
-    overflow: 'hidden',
-  },
 }));
 
 const WeekOfMonthRow = ({ startOfWeek, isLastWeek }) => {
@@ -45,39 +37,20 @@ const WeekOfMonthRow = ({ startOfWeek, isLastWeek }) => {
     end: endOfWeek(startOfWeek),
   });
 
-  const eventsFromStorage = useSelector(state => state.events.items);
-
-  let weekdayToEvents = [];
-  daysOfWeek.forEach(day => {
-    weekdayToEvents.push(eventsFromStorage.filter(event => isSameDay(parseISO(event.startDate), day)));
-  });
-
   return (
     <>
       <Box className={classes.weekOfMonth} ref={setRowRect}>
         <Box className={classes.absoluteRow}>
-          {daysOfWeek.map((day, dayNumber) => {
+          {daysOfWeek.map((day, weekdayNumber) => {
             return (
               <React.Fragment key={day}>
-                <WeekdayCell day={day} isInLastWeek={isLastWeek} parentRect={rowRect} dayNumberInRow={dayNumber} />
-                {dayNumber !== 6 && <Divider orientation={'vertical'} />}
+                <WeekdayCell day={day} isInLastWeek={isLastWeek} parentRect={rowRect} dayNumberInRow={weekdayNumber} />
+                {weekdayNumber !== 6 && <Divider orientation={'vertical'} />}
               </React.Fragment>
             );
           })}
         </Box>
-        <Box className={classes.eventsPresentationWrapper}>
-          <Box className={classes.events}>
-            {weekdayToEvents.map((events, index) => {
-              return (
-                <Box key={index} style={{ flex: '1 1 0%' }}>
-                  {events.map((event, index) => (
-                    <EventBlock key={event.startDate + index} event={event} />
-                  ))}
-                </Box>
-              );
-            })}
-          </Box>
-        </Box>
+        <EventsRow days={daysOfWeek} />
       </Box>
       {!isLastWeek && <Divider />}
     </>

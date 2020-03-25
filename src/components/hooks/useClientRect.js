@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-const UseClientRect = () => {
+const useClientRect = () => {
   const [rect, setRect] = useState(null);
   const ref = useCallback(node => {
     if (node !== null) {
@@ -10,4 +10,4 @@ const UseClientRect = () => {
   return [rect, ref];
 };
 
-export default UseClientRect;
+export default useClientRect;

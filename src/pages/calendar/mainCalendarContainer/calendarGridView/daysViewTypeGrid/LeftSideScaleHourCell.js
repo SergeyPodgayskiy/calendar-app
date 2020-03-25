@@ -21,10 +21,11 @@ const useStyles = makeStyles(theme => ({
 
 const LeftSideScaleHourCell = ({ hour }) => {
   const classes = useStyles();
+  const { convertedHour, period } = convertHourFormat24To12(hour);
 
   return (
     <Typography variant="overline" display="block" className={classes.scaleCellWrapper}>
-      {convertHourFormat24To12(hour)}
+      {convertedHour} {period}
     </Typography>
   );
 };

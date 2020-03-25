@@ -3,9 +3,10 @@ import {
   eachWeekOfInterval,
   endOfMonth,
   endOfWeek,
-  getMinutes,
   startOfMonth,
   startOfWeek,
+  getHours,
+  getMinutes,
 } from 'date-fns';
 
 const hours = generateArrayOfHours();
@@ -59,7 +60,20 @@ function convertHourFormat24To12(hour) {
   const convertedHour = hour % 12 || 12;
   const period = hour < 12 ? 'AM' : 'PM';
 
-  return `${convertedHour} ${period}`;
+  return {
+    convertedHour,
+    period,
+  };
+}
+
+function get12HourFormatText(date, isShowMinutes = true) {
+  if (date) {
+    const { convertedHour, period } = convertHourFormat24To12(getHours(date));
+    const minutes = getMinutes(date);
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+
+    return `${convertedHour}${isShowMinutes && minutes !== 0 ? `:${formattedMinutes}` : ''} ${period}`;
+  }
 }
 
 export {
@@ -70,4 +84,5 @@ export {
   convertHourFormat24To12,
   eachWeekOfMonthForDate,
   getWidthInPercent,
+  get12HourFormatText,
 };

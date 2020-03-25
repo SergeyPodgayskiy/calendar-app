@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedDate, setViewType } from '../../../../../../modules/calendar';
 import dateViewTypes from '../../../../../../utils/dateViewTypes';
 import EventLine from './EventLine';
-import UseClientRect from '../../../../../../components/hooks/useClientRect';
+import useClientRect from '../../../../../../components/hooks/useClientRect';
 import { getWidthInPercent } from '../../../../../../utils/calendarGridUtil';
 
 const useStyles = makeStyles(theme => ({
