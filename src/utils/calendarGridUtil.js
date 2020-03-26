@@ -65,14 +65,20 @@ function convertHourFormat24To12(hour) {
     period,
   };
 }
+function formatMinutes(minutes) {
+  return minutes < 10 ? `0${minutes}` : `${minutes}`;
+}
 
-function get12HourFormatText(date, isShowMinutes = true) {
+function get12HoursTimeFormatObj(date) {
   if (date) {
     const { convertedHour, period } = convertHourFormat24To12(getHours(date));
     const minutes = getMinutes(date);
-    const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
 
-    return `${convertedHour}${isShowMinutes && minutes !== 0 ? `:${formattedMinutes}` : ''} ${period}`;
+    return {
+      convertedHour,
+      minutes,
+      period,
+    };
   }
 }
 
@@ -84,5 +90,6 @@ export {
   convertHourFormat24To12,
   eachWeekOfMonthForDate,
   getWidthInPercent,
-  get12HourFormatText,
+  get12HoursTimeFormatObj,
+  formatMinutes,
 };
