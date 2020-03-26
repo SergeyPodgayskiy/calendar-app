@@ -3,8 +3,13 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { convertHourFormat24To12, get12HourFormatText } from '../../../../../../../../utils/calendarGridUtil';
 import { getHours, parseISO } from 'date-fns';
 import { Box } from '@material-ui/core';
+import { findEventsOfTheGivenDate } from '../../../../../../../../utils/eventsUtil';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
+  wrapper: {
+    padding: '1px 0',
+  },
   eventBlockCommon: {
     cursor: 'pointer',
     fontWeight: 500,
@@ -19,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: 12,
     borderRadius: 4,
     display: 'flex',
-    margin: '2px 0',
+    // margin: '2px 0',
     padding: '0 2px',
     position: 'relative',
     color: 'rgba(32,33,36,0.38)',
@@ -47,43 +52,48 @@ const useStyles = makeStyles(theme => ({
   intervalIndicator: {
     position: 'absolute',
     top: 0,
-    left: '-12%',
+    left: '-16%',
     width: '20%',
   },
 }));
 
-const EventBlock = ({ event, isStartOfEvent, isStartOfRow }) => {
+const EventBlock = ({ event, isStartOfEvent, isStartOfRow, positionToShift }) => {
   const classes = useStyles();
   const eventStartDate = parseISO(event.startDate);
   const formattedTime = get12HourFormatText(eventStartDate);
 
   return (
-    <Box
-      role={'button'}
-      className={`${classes.eventBlockCommon} ${classes.eventBlock}`}
-      style={{ backgroundColor: event.calendarType.color }}
-    >
-      {isStartOfEvent || isStartOfRow ? (
-        <Box component="span" className={classes.eventInfo}>
-          {false && (
-            <Box
-              className={classes.eventInfo__circle}
-              style={{ marginRight: 6, borderColor: event.calendarType.color }}
-            />
-          )}
-          <Box component="span" className={classes.eventInfo__time}>
-            {formattedTime}
+    <Box className={classes.wrapper}>
+      <Box
+        role={'button'}
+        className={`${classes.eventBlockCommon} ${classes.eventBlock}`}
+        style={{
+          backgroundColor: event.calendarType.color,
+          marginTop: `${positionToShift ? `${positionToShift * 2.2}em` : ''}`,
+        }}
+      >
+        {isStartOfEvent || isStartOfRow ? (
+          <Box component="span" className={classes.eventInfo}>
+            {false && (
+              <Box
+                className={classes.eventInfo__circle}
+                style={{ marginRight: 6, borderColor: event.calendarType.color }}
+              />
+            )}
+            <Box component="span" className={classes.eventInfo__time}>
+              {formattedTime}
+            </Box>
+            <Box component="span" className={classes.eventInfo__title}>
+              {event?.title}
+            </Box>
           </Box>
-          <Box component="span" className={classes.eventInfo__title}>
-            {event?.title}
-          </Box>
-        </Box>
-      ) : (
-        <Box
-          className={`${classes.intervalIndicator} ${classes.eventBlockCommon}`}
-          style={{ backgroundColor: event.calendarType.color }}
-        />
-      )}
+        ) : (
+          <Box
+            className={`${classes.intervalIndicator} ${classes.eventBlockCommon}`}
+            style={{ backgroundColor: event.calendarType.color }}
+          />
+        )}
+      </Box>
     </Box>
   );
 };

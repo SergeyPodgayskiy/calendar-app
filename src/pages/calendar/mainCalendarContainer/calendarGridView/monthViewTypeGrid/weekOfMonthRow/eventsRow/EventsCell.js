@@ -5,7 +5,7 @@ import EventBlock from './eventsCell/EventBlock';
 import useClientRect from '../../../../../../../components/hooks/useClientRect';
 import { getWidthInPercent } from '../../../../../../../utils/calendarGridUtil';
 import { useSelector } from 'react-redux';
-import { parseISO, isSameDay } from 'date-fns';
+import { parseISO, isSameDay, isAfter } from 'date-fns';
 import {
   compareEventsByDaysInterval,
   compareEventsByMinutesAsc,
@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const EventsCell = ({ day, parentRowRect, isStartOfRow }) => {
+const EventsCell = ({ day, daysOfRow, parentRowRect, isStartOfRow }) => {
   const classes = useStyles();
   const eventsFromStorage = useSelector(state => state.events.items);
   const [cellRect, setCellRect] = useClientRect();
@@ -30,20 +30,41 @@ const EventsCell = ({ day, parentRowRect, isStartOfRow }) => {
   let eventsOfTheDay = findEventsOfTheGivenDate(eventsFromStorage, day);
 
   if (eventsOfTheDay.length > 0) {
-    console.log(`Before sort : ${day}`, eventsOfTheDay);
-    eventsOfTheDay = sortEvents(eventsOfTheDay, [compareEventsByMinutesAsc, compareEventsByDaysInterval]);
+    console.debug(`Before sort : ${day}`, eventsOfTheDay);
+    eventsOfTheDay = sortEvents(eventsOfTheDay, [compareEventsByMinutesAsc]);
+
+    eventsOfTheDay = eventsOfTheDay.map((event, positionNumberOfEvent) => {
+      const eventStartDate = parseISO(event.startDate);
+      const isStartOfEvent = isSameDay(eventStartDate, day);
+
+      let positionNumberToShiftEvent = null;
+      if (!isStartOfEvent) {
+        const startDateOfTheRow = daysOfRow[0];
+        const dateToFindEvents = isAfter(startDateOfTheRow, eventStartDate) ? startDateOfTheRow : eventStartDate;
+        let eventsOfTheGivenDate = findEventsOfTheGivenDate(eventsFromStorage, dateToFindEvents);
+        eventsOfTheGivenDate = sortEvents(eventsOfTheGivenDate, [compareEventsByMinutesAsc]);
+        //TODO: to have a ID for event and find position by ID
+        const positionNumberOfEventOfStartDate = eventsOfTheGivenDate.findIndex(
+          eventOfGivenDate => eventOfGivenDate.id === event.id,
+        );
+        positionNumberToShiftEvent = positionNumberOfEventOfStartDate - positionNumberOfEvent;
+      }
+
+      return (
+        <EventBlock
+          key={event.startDate + positionNumberOfEvent}
+          event={event}
+          isStartOfEvent={isStartOfEvent}
+          isStartOfRow={isStartOfRow}
+          positionToShift={positionNumberToShiftEvent}
+        />
+      );
+    });
   }
 
   return (
     <Box className={classes.eventCell} ref={setCellRect} style={{ width: cellWidthInPercent }}>
-      {eventsOfTheDay?.map((event, eventNumber) => (
-        <EventBlock
-          key={event.startDate + eventNumber}
-          event={event}
-          isStartOfEvent={isSameDay(parseISO(event.startDate), day)}
-          isStartOfRow={isStartOfRow}
-        />
-      ))}
+      {eventsOfTheDay}
     </Box>
   );
 };

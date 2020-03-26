@@ -24,7 +24,13 @@ const EventsRow = ({ days }) => {
     <Box className={classes.eventsRowWrapper} ref={setRowRect}>
       <Box className={classes.events}>
         {days.map((day, weekdayNumber) => (
-          <EventsCell key={weekdayNumber} day={day} isStartOfRow={weekdayNumber === 0} parentRowRect={rowRect} />
+          <EventsCell
+            key={weekdayNumber}
+            day={day}
+            daysOfRow={days}
+            isStartOfRow={weekdayNumber === 0}
+            parentRowRect={rowRect}
+          />
         ))}
       </Box>
     </Box>
