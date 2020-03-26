@@ -31,7 +31,7 @@ const EventsCell = ({ day, daysOfRow, parentRowRect, isStartOfRow }) => {
 
   if (eventsOfTheDay.length > 0) {
     console.debug(`Before sort : ${day}`, eventsOfTheDay);
-    eventsOfTheDay = sortEvents(eventsOfTheDay, [compareEventsByMinutesAsc]);
+    eventsOfTheDay = sortEvents(eventsOfTheDay, [compareEventsByMinutesAsc, compareEventsByDaysInterval]);
 
     eventsOfTheDay = eventsOfTheDay.map((event, positionNumberOfEvent) => {
       const eventStartDate = parseISO(event.startDate);
@@ -42,7 +42,10 @@ const EventsCell = ({ day, daysOfRow, parentRowRect, isStartOfRow }) => {
         const startDateOfTheRow = daysOfRow[0];
         const dateToFindEvents = isAfter(startDateOfTheRow, eventStartDate) ? startDateOfTheRow : eventStartDate;
         let eventsOfTheGivenDate = findEventsOfTheGivenDate(eventsFromStorage, dateToFindEvents);
-        eventsOfTheGivenDate = sortEvents(eventsOfTheGivenDate, [compareEventsByMinutesAsc]);
+        eventsOfTheGivenDate = sortEvents(eventsOfTheGivenDate, [
+          compareEventsByMinutesAsc,
+          compareEventsByDaysInterval,
+        ]);
         //TODO: to have a ID for event and find position by ID
         const positionNumberOfEventOfStartDate = eventsOfTheGivenDate.findIndex(
           eventOfGivenDate => eventOfGivenDate.id === event.id,

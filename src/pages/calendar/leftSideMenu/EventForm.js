@@ -154,6 +154,7 @@ const EventForm = () => {
   const handleSave = async () => {
     if (isValidForm) {
       const event = {
+        id: Date.now(),
         title,
         startDate: formatISO(startDate),
         endDate: formatISO(endDate),
