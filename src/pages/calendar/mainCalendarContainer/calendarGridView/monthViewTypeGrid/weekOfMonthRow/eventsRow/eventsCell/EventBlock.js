@@ -1,10 +1,8 @@
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { convertHourFormat24To12, get12HourFormatText } from '../../../../../../../../utils/calendarGridUtil';
-import { getHours, parseISO } from 'date-fns';
-import { Box } from '@material-ui/core';
-import { findEventsOfTheGivenDate } from '../../../../../../../../utils/eventsUtil';
-import { useSelector } from 'react-redux';
+import { get12HourFormatText } from '../../../../../../../../utils/calendarGridUtil';
+import { parseISO, isPast } from 'date-fns';
+import { Box, lighten } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
@@ -61,6 +59,8 @@ const EventBlock = ({ event, isStartOfEvent, isStartOfRow, positionToShift }) =>
   const classes = useStyles();
   const eventStartDate = parseISO(event.startDate);
   const formattedTime = get12HourFormatText(eventStartDate);
+  let eventColor = event.calendarType.color;
+  eventColor = isPast(parseISO(event.endDate)) ? lighten(eventColor, 0.3) : eventColor;
 
   return (
     <Box className={classes.wrapper}>
@@ -68,7 +68,7 @@ const EventBlock = ({ event, isStartOfEvent, isStartOfRow, positionToShift }) =>
         role={'button'}
         className={`${classes.eventBlockCommon} ${classes.eventBlock}`}
         style={{
-          backgroundColor: event.calendarType.color,
+          backgroundColor: eventColor,
           marginTop: `${positionToShift ? `${positionToShift * 2.2}em` : ''}`,
         }}
       >
@@ -90,7 +90,7 @@ const EventBlock = ({ event, isStartOfEvent, isStartOfRow, positionToShift }) =>
         ) : (
           <Box
             className={`${classes.intervalIndicator} ${classes.eventBlockCommon}`}
-            style={{ backgroundColor: event.calendarType.color }}
+            style={{ backgroundColor: eventColor }}
           />
         )}
       </Box>
