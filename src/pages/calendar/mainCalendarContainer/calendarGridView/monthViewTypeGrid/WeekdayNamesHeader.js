@@ -2,7 +2,6 @@ import React from 'react';
 import { Box } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { weekdayShortNames } from '../../../../../utils/calendarGridUtil';
-import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles(theme => ({
   weekdayNamesHeader: {

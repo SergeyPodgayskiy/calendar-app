@@ -2,14 +2,10 @@ import React from 'react';
 import { Box } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import useMarginTopBottomSpacing from '../../../../../../components/hooks/useMarginTopBottomSpacing';
-import Divider from '@material-ui/core/Divider';
-import { isToday, isFirstDayOfMonth, format, isSameDay, parseISO, eachDayOfInterval, getHours } from 'date-fns';
-import { useDispatch, useSelector } from 'react-redux';
+import { isToday, isFirstDayOfMonth, format } from 'date-fns';
+import { useDispatch } from 'react-redux';
 import { setSelectedDate, setViewType } from '../../../../../../modules/calendar';
 import dateViewTypes from '../../../../../../utils/dateViewTypes';
-import EventLine from './EventLine';
-import useClientRect from '../../../../../../components/hooks/useClientRect';
-import { getWidthInPercent } from '../../../../../../utils/calendarGridUtil';
 
 const useStyles = makeStyles(theme => ({
   dayOfMonthCellWrapper: {
@@ -52,47 +48,6 @@ const WeekdayCell = ({ day, isInLastWeek, parentRect, dayNumberInRow }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const formattedNameOfMonth = isFirstDayOfMonth(day) ? format(day, 'MMM') : null;
-
-  /*  const events = useSelector(state => state.events.items);
-  const eventsOfThisDay = events.filter(event => isSameDay(parseISO(event.startDate), day));
-
-  const [cellRect, setCellRect] = UseClientRect();
-  const cellWidthInPercent = getWidthInPercent(cellRect, parentRect);*/
-
-  let eventLinesToRender;
-
-  /*if (cellWidthInPercent) {
-    eventLinesToRender = eventsOfThisDay?.map(event => {
-      const startDate = parseISO(event.startDate);
-      const endDate = parseISO(event.endDate);
-      const eventDurationInDays = eachDayOfInterval({
-        start: startDate,
-        end: endDate,
-      }).length;
-
-      let isAllDayEvent = false;
-      let eventBlockWidthInPercent;
-      const leftShift = cellWidthInPercent * dayNumberInRow;
-
-      // TODO: add logic for case when eventDurationInDays width > parent width (need to implement shift to nex line)
-      if (eventDurationInDays > 0) {
-        eventBlockWidthInPercent = cellWidthInPercent * eventDurationInDays;
-      } else {
-        isAllDayEvent = getHours(startDate) === 24;
-        eventBlockWidthInPercent = cellWidthInPercent;
-      }
-
-      return (
-        <EventLine
-          key={startDate + endDate}
-          event={event}
-          left={leftShift}
-          width={eventBlockWidthInPercent}
-          isOneOrMoreDays={isAllDayEvent || eventDurationInDays > 0}
-        />
-      );
-    });
-  }*/
 
   const handleSelectDate = () => {
     setSelectedDate(day)(dispatch);

@@ -13,3 +13,6 @@ export const FAMILY = 'family';
 
 // Common
 export const EVENTS = 'events';
+
+// Events
+export const NO_TITLE_TEXT = '(No Title)';

@@ -12,6 +12,9 @@ import {
   findEventsOfTheGivenDate,
   sortEvents,
 } from '../../../../../../../utils/eventsUtil';
+import NotShownEventsTextBlock from './eventsCell/NotShownEventsTextBlock';
+
+const EVENTS_NUMBER_TO_SHOW_PER_CELL = 4;
 
 const useStyles = makeStyles(theme => ({
   eventCell: {
@@ -28,12 +31,15 @@ const EventsCell = ({ day, daysOfRow, parentRowRect, isStartOfRow }) => {
   const cellWidthInPercent = getWidthInPercent(cellRect, parentRowRect);
 
   let eventsOfTheDay = findEventsOfTheGivenDate(eventsFromStorage, day);
+  let eventsToShowPerCell;
+  let notShownNumberOfEvents;
 
   if (eventsOfTheDay.length > 0) {
-    console.debug(`Before sort : ${day}`, eventsOfTheDay);
-    eventsOfTheDay = sortEvents(eventsOfTheDay, [compareEventsByMinutesAsc, compareEventsByDaysInterval]);
+    eventsToShowPerCell = sortEvents(eventsOfTheDay, [compareEventsByMinutesAsc, compareEventsByDaysInterval]);
+    eventsToShowPerCell = eventsToShowPerCell.slice(0, EVENTS_NUMBER_TO_SHOW_PER_CELL);
+    notShownNumberOfEvents = eventsOfTheDay.length - eventsToShowPerCell.length;
 
-    eventsOfTheDay = eventsOfTheDay.map((event, positionNumberOfEvent) => {
+    eventsToShowPerCell = eventsToShowPerCell.map((event, positionNumberOfEvent) => {
       const eventStartDate = parseISO(event.startDate);
       const isStartOfEvent = isSameDay(eventStartDate, day);
 
@@ -67,7 +73,10 @@ const EventsCell = ({ day, daysOfRow, parentRowRect, isStartOfRow }) => {
 
   return (
     <Box className={classes.eventCell} ref={setCellRect} style={{ width: cellWidthInPercent }}>
-      {eventsOfTheDay}
+      {eventsToShowPerCell}
+      {Boolean(notShownNumberOfEvents) && (
+        <NotShownEventsTextBlock text={`${notShownNumberOfEvents} more`} date={day} eventsToShow={eventsOfTheDay} />
+      )}
     </Box>
   );
 };

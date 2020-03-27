@@ -3,6 +3,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { get12HoursTimeFormatObj, formatMinutes } from '../../../../../../../../utils/calendarGridUtil';
 import { parseISO, isPast, differenceInHours } from 'date-fns';
 import { Box, lighten, darken } from '@material-ui/core';
+import { NO_TITLE_TEXT } from '../../../../../../../../constants/constants';
 
 const useStyles = (eventColor, eventDurationLessThanOneDay) =>
   makeStyles(theme => ({
@@ -47,6 +48,7 @@ const useStyles = (eventColor, eventDurationLessThanOneDay) =>
       flex: '0 1 auto',
       overflow: 'hidden',
       whiteSpace: 'nowrap',
+      letterSpacing: 0,
     },
     intervalIndicator: {
       position: 'absolute',
@@ -111,7 +113,7 @@ const EventBlock = ({ event, isStartOfEvent, isStartOfRow, positionToShift }) =>
               {formattedTimeDisplayText}
             </Box>
             <Box component="span" className={classes.eventInfo__title}>
-              {event?.title}
+              {event?.title || NO_TITLE_TEXT}
             </Box>
           </Box>
         ) : (
