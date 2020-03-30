@@ -30,32 +30,37 @@ const NotShownEventsTextBlock = ({ text, date, eventsToShow }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleToggleEventsCardDialog = event => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
+  const handleOpenEventsCardDialog = event => {
+    setAnchorEl(event.currentTarget);
   };
+
+  const handleCloseEventsCardDialog = () => {
+    setAnchorEl(null);
+  };
+
   const isOpen = Boolean(anchorEl);
   const id = isOpen ? 'events-list-popover' : null;
 
   return (
     <>
-      <Box className={classes.textBlock} onClick={handleToggleEventsCardDialog}>
+      <Box className={classes.textBlock} onClick={handleOpenEventsCardDialog}>
         {text}
       </Box>
       <Popover
         id={id}
         open={isOpen}
         anchorEl={anchorEl}
-        onClose={handleToggleEventsCardDialog}
+        onClose={handleCloseEventsCardDialog}
         anchorOrigin={{
           vertical: 'top',
           horizontal: 'center',
         }}
         transformOrigin={{
-          vertical: 'top',
+          vertical: 'center',
           horizontal: 'center',
         }}
       >
-        <EventsListCard date={date} events={eventsToShow} />
+        <EventsListCard date={date} events={eventsToShow} handleCloseCard={handleCloseEventsCardDialog} />
       </Popover>
     </>
   );

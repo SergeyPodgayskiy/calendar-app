@@ -4,8 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import { format, isToday } from 'date-fns';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useSelector, useDispatch } from 'react-redux';
-import { setSelectedDate, setViewType } from '../../../../../../modules/calendar';
-import dateViewTypes from '../../../../../../utils/dateViewTypes';
+import { setSelectedDate, setViewType } from '../modules/calendar';
+import dateViewTypes from '../utils/dateViewTypes';
 
 const useStyles = makeStyles(theme => ({
   circle: {
@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
 const dayOfWeekNameFormat = 'iii';
 const dayOfMonthNumberFormat = 'd';
 
-const DayHeaderCell = ({ day }) => {
+const DayHeaderCell = ({ day, dayNumberFontSize = '1.3rem' }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const viewType = useSelector(state => state.calendar.viewType);
@@ -73,7 +73,12 @@ const DayHeaderCell = ({ day }) => {
           className={`${classes.circle} ${isSelectedDateIsToday ? classes.activeCircle : classes.passiveCircle}`}
           onClick={handleSelectDate}
         >
-          <Typography variant="caption" display={'block'} className={classes.dayNumberCaption}>
+          <Typography
+            variant="caption"
+            display={'block'}
+            className={classes.dayNumberCaption}
+            style={{ fontSize: dayNumberFontSize }}
+          >
             {selectedDateOfMonth}
           </Typography>
         </Box>

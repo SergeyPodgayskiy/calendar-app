@@ -9,6 +9,7 @@ const useStyles = (eventColor, eventDurationLessThanOneDay) =>
   makeStyles(theme => ({
     wrapper: {
       padding: '1px 0',
+      width: '100%',
     },
     eventBlockCommon: {
       cursor: 'pointer',
@@ -70,7 +71,7 @@ const useStyles = (eventColor, eventDurationLessThanOneDay) =>
     },
   }));
 
-const EventBlock = ({ event, isStartOfEvent, isStartOfRow, positionToShift }) => {
+const EventBlock = ({ event, isStartOfEvent, isStartOfRow, considerInterval = true, positionToShift }) => {
   let eventColor = event.calendarType.color;
   eventColor = isPast(parseISO(event.endDate)) ? lighten(eventColor, 0.3) : eventColor;
   const eventEndDate = parseISO(event.endDate);
@@ -91,7 +92,7 @@ const EventBlock = ({ event, isStartOfEvent, isStartOfRow, positionToShift }) =>
           marginTop: `${positionToShift ? `${positionToShift * 2.2}em` : ''}`,
         }}
       >
-        {isStartOfEvent || isStartOfRow ? (
+        {isStartOfEvent || isStartOfRow || !considerInterval ? (
           <Box
             component="span"
             className={`${classes.eventInfo} ${
