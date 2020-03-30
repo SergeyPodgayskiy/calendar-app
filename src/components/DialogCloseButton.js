@@ -7,17 +7,17 @@ import Box from '@material-ui/core/Box';
 const useStyles = makeStyles(theme => ({
   iconButton: {
     padding: '4px 4px 0 0',
-    position: 'absolute',
     right: 0,
     top: 0,
+    position: 'absolute',
   },
 }));
 
-const DialogCloseButton = ({ size = 'small', handleClose }) => {
+const DialogCloseButton = ({ size = 'small', className, handleClose }) => {
   const defaultClasses = useStyles();
 
   return (
-    <Box className={defaultClasses.iconButton}>
+    <Box className={className ? className : defaultClasses.iconButton}>
       <IconButton aria-label="close" size={size} onClick={handleClose}>
         <CloseRoundedIcon />
       </IconButton>

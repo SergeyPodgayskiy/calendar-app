@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { get12HoursTimeFormatObj, formatMinutes } from '../../../../../../../../utils/calendarGridUtil';
 import { parseISO, isPast, differenceInHours } from 'date-fns';
 import { Box, lighten, darken } from '@material-ui/core';
 import { NO_TITLE_TEXT } from '../../../../../../../../constants/constants';
+import EventInfoPopper from '../../../../../../../../components/EventInfoPopper';
 
 const useStyles = (eventColor, eventDurationLessThanOneDay) =>
   makeStyles(theme => ({
@@ -72,6 +73,8 @@ const useStyles = (eventColor, eventDurationLessThanOneDay) =>
   }));
 
 const EventBlock = ({ event, isStartOfEvent, isStartOfRow, considerInterval = true, positionToShift }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+
   let eventColor = event.calendarType.color;
   eventColor = isPast(parseISO(event.endDate)) ? lighten(eventColor, 0.3) : eventColor;
   const eventEndDate = parseISO(event.endDate);
@@ -81,50 +84,58 @@ const EventBlock = ({ event, isStartOfEvent, isStartOfRow, considerInterval = tr
   const { convertedHour, minutes, period } = get12HoursTimeFormatObj(eventStartDate);
   const formattedTimeDisplayText = `${convertedHour}:${formatMinutes(minutes)}${period.toLowerCase()}`;
 
+  const openEventInfoPopover = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
   return (
-    <Box className={classes.wrapper}>
-      <Box
-        role={'button'}
-        className={`${classes.eventBlockCommon} ${classes.eventBlock} ${
-          eventDurationLessThanOneDay ? classes['eventBlock--lessThanDayEvent'] : ''
-        }`}
-        style={{
-          marginTop: `${positionToShift ? `${positionToShift * 2.2}em` : ''}`,
-        }}
-      >
-        {isStartOfEvent || isStartOfRow || !considerInterval ? (
-          <Box
-            component="span"
-            className={`${classes.eventInfo} ${
-              eventDurationLessThanOneDay ? classes['eventInfo--lessThanDayEvent'] : ''
-            }`}
-          >
-            {eventDurationLessThanOneDay && (
-              <Box
-                className={classes.eventInfo__circle}
-                style={{ marginRight: 6, borderColor: event.calendarType.color }}
-              />
-            )}
+    <>
+      <Box className={classes.wrapper}>
+        <Box
+          role={'button'}
+          className={`${classes.eventBlockCommon} ${classes.eventBlock} ${
+            eventDurationLessThanOneDay ? classes['eventBlock--lessThanDayEvent'] : ''
+          }`}
+          style={{
+            marginTop: `${positionToShift ? `${positionToShift * 2.2}em` : ''}`,
+          }}
+          onClick={openEventInfoPopover}
+        >
+          {isStartOfEvent || isStartOfRow || !considerInterval ? (
             <Box
               component="span"
-              className={`${classes.eventInfo__time} ${
-                eventDurationLessThanOneDay ? classes['eventInfo__time--lessThanDayEvent'] : ''
+              className={`${classes.eventInfo} ${
+                eventDurationLessThanOneDay ? classes['eventInfo--lessThanDayEvent'] : ''
               }`}
             >
-              {formattedTimeDisplayText}
+              {eventDurationLessThanOneDay && (
+                <Box
+                  className={classes.eventInfo__circle}
+                  style={{ marginRight: 6, borderColor: event.calendarType.color }}
+                />
+              )}
+              <Box
+                component="span"
+                className={`${classes.eventInfo__time} ${
+                  eventDurationLessThanOneDay ? classes['eventInfo__time--lessThanDayEvent'] : ''
+                }`}
+              >
+                {formattedTimeDisplayText}
+              </Box>
+              <Box component="span" className={classes.eventInfo__title}>
+                {event?.title || NO_TITLE_TEXT}
+              </Box>
             </Box>
-            <Box component="span" className={classes.eventInfo__title}>
-              {event?.title || NO_TITLE_TEXT}
-            </Box>
-          </Box>
-        ) : (
-          <Box
-            className={`${classes.intervalIndicator} ${classes.eventBlockCommon}`}
-            style={{ backgroundColor: eventColor }}
-          />
-        )}
+          ) : (
+            <Box
+              className={`${classes.intervalIndicator} ${classes.eventBlockCommon}`}
+              style={{ backgroundColor: eventColor }}
+            />
+          )}
+        </Box>
       </Box>
-    </Box>
+      <EventInfoPopper event={event} anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
+    </>
   );
 };
 

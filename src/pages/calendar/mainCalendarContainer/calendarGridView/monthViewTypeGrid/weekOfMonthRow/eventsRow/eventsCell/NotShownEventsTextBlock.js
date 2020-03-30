@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Box } from '@material-ui/core';
-import Popover from '@material-ui/core/Popover';
-import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
-import IconButton from '@material-ui/core/IconButton';
-import EventsListCard from './EventsListCard';
+import EventsListCardPopover from './EventsListCardPopover';
 
 const useStyles = makeStyles(theme => ({
   textBlock: {
@@ -30,38 +27,16 @@ const NotShownEventsTextBlock = ({ text, date, eventsToShow }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleOpenEventsCardDialog = event => {
+  const handleOpenEventsCardPopover = event => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleCloseEventsCardDialog = () => {
-    setAnchorEl(null);
-  };
-
-  const isOpen = Boolean(anchorEl);
-  const id = isOpen ? 'events-list-popover' : null;
-
   return (
     <>
-      <Box className={classes.textBlock} onClick={handleOpenEventsCardDialog}>
+      <Box className={classes.textBlock} onClick={handleOpenEventsCardPopover}>
         {text}
       </Box>
-      <Popover
-        id={id}
-        open={isOpen}
-        anchorEl={anchorEl}
-        onClose={handleCloseEventsCardDialog}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'center',
-          horizontal: 'center',
-        }}
-      >
-        <EventsListCard date={date} events={eventsToShow} handleCloseCard={handleCloseEventsCardDialog} />
-      </Popover>
+      <EventsListCardPopover events={eventsToShow} date={date} anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
     </>
   );
 };
