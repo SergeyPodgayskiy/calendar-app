@@ -16,3 +16,6 @@ export const EVENTS = 'events';
 
 // Events
 export const NO_TITLE_TEXT = '(No Title)';
+export const EVENT_ACTION_DELETE = 'delete';
+export const EVENT_ACTION_PERSIST = 'persist';
+export const EVENT_ACTION_EDIT = 'edit';

@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     width: 450,
     display: 'flex',
     flexDirection: 'column',
-    position: 'relative',
+    // position: 'relative',
   },
 }));
 

@@ -50,6 +50,8 @@ const useStyles = makeStyles(theme => ({
     },
   },
 }));
+
+// E.x March 31, 2020
 const EVENT_DATE_FORMAT = 'MMMM d, yyyy';
 
 const EventInfoCardContent = ({ event }) => {

@@ -15,6 +15,7 @@ import { UPDATE_CURRENT_DATE_DELAY } from '../config';
 import { fetchEvents } from '../modules/events';
 import Alert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContainer from './SnackbarContainer';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -72,6 +73,7 @@ const Calendar = () => {
           </Box>
         </Box>
       </Container>
+      <SnackbarContainer />
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         open={isShowErrorSnackbar}

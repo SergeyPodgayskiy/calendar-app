@@ -92,6 +92,26 @@ export function persistEvent(event) {
   };
 }
 
+export function deleteEvent(eventId) {
+  return async dispatch => {
+    try {
+      const eventsArr = [...localStorageApi.get(EVENTS)];
+
+      if (eventsArr?.length) {
+        const updatedEvents = eventsArr.filter(event => event.id !== eventId);
+        dispatch({ type: EVENTS_PERSIST_SUCCESS, payload: updatedEvents });
+        await localStorageApi.persistAsync(EVENTS, updatedEvents);
+        return eventId;
+      }
+    } catch (error) {
+      dispatch({ type: EVENTS_PERSIST_FAIL, payload: new Error('Failed to delete the event. Please try again') });
+      console.error(error);
+    }
+  };
+}
+
+export function editEvent(updatedEvent) {}
+
 export function toggleEventForm() {
   return dispatch => {
     dispatch({ type: EVENT_FORM_TOGGLE });

@@ -14,10 +14,10 @@ import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { toggleEventForm, persistEvent } from '../../../modules/events';
-import Alert from '@material-ui/lab/Alert';
-import Snackbar from '@material-ui/core/Snackbar';
 import calendarTypes, { defaultCalendarType } from '../../../utils/calendarTypes';
 import MenuItem from '@material-ui/core/MenuItem';
+import useEventSnackbar from '../../../components/hooks/useEventSnackbar';
+import eventActionsTypes from '../../../utils/eventActionsTypes';
 
 // Panel Styles Overriding
 const ExpansionPanel = withStyles({
@@ -115,7 +115,7 @@ const EventForm = () => {
   const [description, setDescription] = useState('');
   const [calendarType, setCalendarType] = useState(defaultCalendarType);
   const [validationErrors, setValidationErrors] = useState(null);
-  const [isShowSnackbar, setIsShowSnackbar] = useState(false);
+  const [SavedEventSnackbar, showSnackbar, setShowSnackbar] = useEventSnackbar(eventActionsTypes.persist, false);
   const isValidForm = !validationErrors || Object.keys(validationErrors).length === 0;
 
   // Effects
@@ -164,7 +164,7 @@ const EventForm = () => {
       await persistEvent(event)(dispatch);
       handleToggleEventForm();
       resetForm();
-      setIsShowSnackbar(true);
+      setShowSnackbar(true);
     }
   };
 
@@ -189,10 +189,6 @@ const EventForm = () => {
     setDescription('');
     setCalendarType(defaultCalendarType);
     setValidationErrors([]);
-  };
-
-  const handleCloseSnackbar = () => {
-    setIsShowSnackbar(false);
   };
 
   return (
@@ -279,16 +275,7 @@ const EventForm = () => {
           </form>
         </ExpansionPanelDetails>
       </ExpansionPanel>
-      <Snackbar
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-        open={isShowSnackbar}
-        autoHideDuration={3000}
-        onClose={handleCloseSnackbar}
-      >
-        <Alert severity="success" onClose={handleCloseSnackbar}>
-          Event saved
-        </Alert>
-      </Snackbar>
+      {SavedEventSnackbar && <SavedEventSnackbar />}
     </>
   );
 };

@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
 import DialogCloseButton from '../DialogCloseButton';
 import IconButton from '@material-ui/core/IconButton';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
+import { useDispatch } from 'react-redux';
+import { deleteEvent } from '../../modules/events';
+import useEventSnackbar from '../hooks/useEventSnackbar';
+import eventActionsTypes from '../../utils/eventActionsTypes';
 
 const useStyles = makeStyles(theme => ({
   header: {
@@ -27,19 +31,24 @@ const useStyles = makeStyles(theme => ({
 
 const EventInfoCardHeader = ({ event, handleCloseCard }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
-  //TODO: implement actions (edit, delete)
+  const handleDeleteEvent = async event => {
+    const deletedId = await deleteEvent(event.id)(dispatch);
+  };
+
+  const handleEditEvent = event => {};
 
   return (
     <Box className={classes.header}>
       <Box className={classes.eventActions}>
         <Box className={classes.actionButton}>
-          <IconButton aria-label={'edit-event'} size={'small'}>
+          <IconButton aria-label={'edit-event'} size={'small'} onClick={() => handleEditEvent(event)}>
             <EditOutlinedIcon />
           </IconButton>
         </Box>
         <Box className={classes.actionButton}>
-          <IconButton aria-label={'delete-event'} size={'small'}>
+          <IconButton aria-label={'delete-event'} size={'small'} onClick={() => handleDeleteEvent(event)}>
             <DeleteOutlineOutlinedIcon />
           </IconButton>
         </Box>
