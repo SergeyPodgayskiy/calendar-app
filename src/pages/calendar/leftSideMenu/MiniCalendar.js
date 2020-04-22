@@ -11,7 +11,7 @@ const MiniCalendar = ({ dateToSelect, theme }) => {
   const dispatch = useDispatch();
 
   const handleSetSelectedDate = (date, isFinish) => {
-    setSelectedDate(date)(dispatch);
+    dispatch(setSelectedDate(date));
   };
 
   return (

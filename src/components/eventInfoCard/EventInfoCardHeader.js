@@ -32,7 +32,7 @@ const EventInfoCardHeader = ({ event, handleCloseCard }) => {
   const dispatch = useDispatch();
 
   const handleDeleteEvent = async event => {
-    const deletedId = await deleteEvent(event.id)(dispatch);
+    const deletedId = await dispatch(deleteEvent(event.id));
   };
 
   const handleEditEvent = event => {};

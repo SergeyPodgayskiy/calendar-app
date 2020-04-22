@@ -39,11 +39,11 @@ const Calendar = () => {
   const error = useSelector(state => state.events.error);
 
   useInterval(() => {
-    setCurrentDate(new Date())(dispatch);
+    dispatch(setCurrentDate(new Date()));
   }, UPDATE_CURRENT_DATE_DELAY);
 
   useEffect(() => {
-    fetchEvents()(dispatch)
+    dispatch(fetchEvents())
       .then(events => {
         console.debug('loaded events', events);
       })

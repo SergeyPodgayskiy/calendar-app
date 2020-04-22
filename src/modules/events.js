@@ -85,6 +85,7 @@ export function persistEvent(event) {
       let eventsArr = eventsObj ? [...eventsObj, event] : [event];
       eventsArr = await localStorageApi.persistAsync(EVENTS, eventsArr);
       dispatch({ type: EVENTS_PERSIST_SUCCESS, payload: eventsArr });
+      return Promise.resolve();
     } catch (error) {
       dispatch({ type: EVENTS_PERSIST_FAIL, payload: new Error('Failed to save your events. Please try again') });
       console.error(error);

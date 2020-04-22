@@ -50,8 +50,8 @@ const WeekdayCell = ({ day, isInLastWeek, parentRect, dayNumberInRow }) => {
   const formattedNameOfMonth = isFirstDayOfMonth(day) ? format(day, 'MMM') : null;
 
   const handleSelectDate = () => {
-    setSelectedDate(day)(dispatch);
-    setViewType(dateViewTypes.day)(dispatch);
+    dispatch(setSelectedDate(day));
+    dispatch(setViewType(dateViewTypes.day));
   };
 
   return (

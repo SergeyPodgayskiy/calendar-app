@@ -54,7 +54,7 @@ const CalendarViewTypePicker = () => {
   const handleSelectViewType = (event, index) => {
     const viewType = viewTypeOptions[index];
     if (viewType) {
-      setViewType(viewType)(dispatch);
+      dispatch(setViewType(viewType));
     }
     handleToggle();
   };

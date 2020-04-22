@@ -149,7 +149,7 @@ const EventForm = () => {
   };
 
   const handleToggleEventForm = () => {
-    toggleEventForm()(dispatch);
+    dispatch(toggleEventForm());
   };
 
   const handleSave = async () => {
@@ -162,7 +162,7 @@ const EventForm = () => {
         description,
         calendarType,
       };
-      await persistEvent(event)(dispatch);
+      await dispatch(persistEvent(event));
       handleToggleEventForm();
       resetForm();
       setShowSnackbar(true);

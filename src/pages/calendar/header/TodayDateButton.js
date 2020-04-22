@@ -25,7 +25,7 @@ const TodayDateButton = () => {
   const dispatch = useDispatch();
 
   const handleSetTodayDate = () => {
-    setSelectedDate(currentDate)(dispatch);
+    dispatch(setSelectedDate(currentDate));
   };
 
   return (

@@ -19,7 +19,7 @@ const NextDatePeriodButton = () => {
   const dispatch = useDispatch();
 
   const handleSetNextDatePeriod = () => {
-    setNextDatePeriod(selectedDate, viewType)(dispatch);
+    dispatch(setNextDatePeriod(selectedDate, viewType));
   };
 
   return (

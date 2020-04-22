@@ -35,11 +35,11 @@ const MonthViewTypeGrid = () => {
   const handleOnWheel = debounce(e => {
     // scrolling up
     if (e.deltaY < 0) {
-      setPrevDatePeriod(selectedDate, dateViewTypes.month)(dispatch);
+      dispatch(setPrevDatePeriod(selectedDate, dateViewTypes.month));
     }
     // scrolling down
     if (e.deltaY > 0) {
-      setNextDatePeriod(selectedDate, dateViewTypes.month)(dispatch);
+      dispatch(setNextDatePeriod(selectedDate, dateViewTypes.month));
     }
   }, 100);
 

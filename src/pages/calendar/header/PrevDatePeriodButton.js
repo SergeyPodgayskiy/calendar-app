@@ -19,7 +19,7 @@ const PrevDatePeriodButton = () => {
   const dispatch = useDispatch();
 
   const handleSetPreviousDatePeriod = () => {
-    setPrevDatePeriod(selectedDate, viewType)(dispatch);
+    dispatch(setPrevDatePeriod(selectedDate, viewType));
   };
 
   return (

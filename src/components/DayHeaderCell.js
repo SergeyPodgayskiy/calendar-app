@@ -58,8 +58,8 @@ const DayHeaderCell = ({ day, dayNumberFontSize = '1.3rem' }) => {
 
   const handleSelectDate = () => {
     if (viewType !== dateViewTypes.day) {
-      setSelectedDate(day)(dispatch);
-      setViewType(dateViewTypes.day)(dispatch);
+      dispatch(setSelectedDate(day));
+      dispatch(setViewType(dateViewTypes.day));
     }
   };
 
