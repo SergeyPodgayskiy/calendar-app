@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
-import DialogCloseButton from '../DialogCloseButton';
 import IconButton from '@material-ui/core/IconButton';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import { useDispatch } from 'react-redux';
+import DialogCloseButton from '../DialogCloseButton';
 import { deleteEvent } from '../../modules/events';
-import useEventSnackbar from '../hooks/useEventSnackbar';
-import eventActionsTypes from '../../utils/eventActionsTypes';
 
 const useStyles = makeStyles(theme => ({
   header: {

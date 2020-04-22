@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { get12HoursTimeFormatObj, formatMinutes } from '../../../../../../../../utils/calendarGridUtil';
 import { parseISO, isPast, differenceInHours } from 'date-fns';
-import { Box, lighten, darken } from '@material-ui/core';
+import { Box, lighten } from '@material-ui/core';
 import { NO_TITLE_TEXT } from '../../../../../../../../constants/constants';
 import EventInfoPopper from '../../../../../../../../components/EventInfoPopper';
 

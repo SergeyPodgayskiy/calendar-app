@@ -1,15 +1,11 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
-import { eachDayOfInterval, endOfWeek, isSameDay, parseISO } from 'date-fns';
-import WeekdayCell from './weekOfMonthRow/WeekdayCell';
+import { eachDayOfInterval, endOfWeek } from 'date-fns';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Divider from '@material-ui/core/Divider';
 import useClientRect from '../../../../../components/hooks/useClientRect';
-import { useSelector } from 'react-redux';
-import EventBlock from './weekOfMonthRow/eventsRow/eventsCell/EventBlock';
+import WeekdayCell from './weekOfMonthRow/WeekdayCell';
 import EventsRow from './weekOfMonthRow/EventsRow';
-
-const MAX_EVENTS_ROW_HEIGHT_EM = '5em';
 
 const useStyles = makeStyles(theme => ({
   weekOfMonth: {
@@ -45,7 +41,7 @@ const WeekOfMonthRow = ({ startOfWeek, isLastWeek }) => {
             return (
               <React.Fragment key={day}>
                 <WeekdayCell day={day} isInLastWeek={isLastWeek} parentRect={rowRect} dayNumberInRow={weekdayNumber} />
-                {weekdayNumber !== 6 && <Divider orientation={'vertical'} />}
+                {weekdayNumber !== 6 && <Divider orientation="vertical" />}
               </React.Fragment>
             );
           })}

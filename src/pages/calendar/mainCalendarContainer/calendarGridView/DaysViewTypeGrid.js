@@ -3,11 +3,11 @@ import { Box } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Divider from '@material-ui/core/Divider';
 
+import { useSelector } from 'react-redux';
 import DaysViewTypeHeader from './daysViewTypeGrid/DaysViewTypeHeader';
 import usePaddingLeftRightSpacing from '../../../../components/hooks/usePaddingLeftRightSpacing';
 import { eachDayOfWeekForDate, hours } from '../../../../utils/calendarGridUtil';
 import HourRow from './daysViewTypeGrid/HourRow';
-import { useSelector } from 'react-redux';
 import dateViewTypes from '../../../../utils/dateViewTypes';
 
 const useStyles = makeStyles(theme => ({
@@ -24,7 +24,6 @@ const DaysViewTypeGrid = () => {
   const classes = useStyles();
   const viewType = useSelector(state => state.calendar.viewType);
   const selectedDate = useSelector(state => state.calendar.selectedDate);
-  const events = useSelector(state => state.events.items);
 
   let daysToRender = [selectedDate];
   if (viewType === dateViewTypes.week) {

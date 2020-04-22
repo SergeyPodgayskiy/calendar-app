@@ -7,15 +7,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addHours, isBefore, formatISO } from 'date-fns';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
-import useMarginTopBottomSpacing from '../../../components/hooks/useMarginTopBottomSpacing';
 import AddIcon from '@material-ui/icons/Add';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import withStyles from '@material-ui/core/styles/withStyles';
+import MenuItem from '@material-ui/core/MenuItem';
+import useMarginTopBottomSpacing from '../../../components/hooks/useMarginTopBottomSpacing';
 import { toggleEventForm, persistEvent } from '../../../modules/events';
 import calendarTypes, { defaultCalendarType } from '../../../utils/calendarTypes';
-import MenuItem from '@material-ui/core/MenuItem';
 import useEventSnackbar from '../../../components/hooks/useEventSnackbar';
 import eventActionsTypes from '../../../utils/eventActionsTypes';
 

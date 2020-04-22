@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
-import { format } from 'date-fns';
 import { makeStyles } from '@material-ui/core/styles';
 import DialogCloseButton from '../../../../../../../../../components/DialogCloseButton';
 import DayHeaderCell from '../../../../../../../../../components/DayHeaderCell';

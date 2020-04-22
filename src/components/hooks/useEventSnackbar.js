@@ -1,12 +1,11 @@
 import React, { useMemo, useState } from 'react';
 import Alert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
-import eventActionsTypes from '../../utils/eventActionsTypes';
-import withStyles from '@material-ui/core/styles/withStyles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Box } from '@material-ui/core';
+import eventActionsTypes from '../../utils/eventActionsTypes';
 
-//Styles
+// Styles
 const useStyles = makeStyles(theme => ({
   snackbarContent: {
     minWidth: 280,

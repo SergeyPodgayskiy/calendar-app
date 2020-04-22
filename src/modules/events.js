@@ -1,5 +1,5 @@
 import localStorageApi from '../utils/localStorageApi';
-import { EVENT_FORM_NAME, EVENTS } from '../constants/constants';
+import { EVENTS } from '../constants/constants';
 
 // Action Types
 const EVENTS_FETCHING = 'events:fetching';

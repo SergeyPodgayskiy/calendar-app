@@ -1,11 +1,11 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Box } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import { parseISO, isSameDay, isAfter } from 'date-fns';
 import EventBlock from './eventsCell/EventBlock';
 import useClientRect from '../../../../../../../components/hooks/useClientRect';
 import { getWidthInPercent } from '../../../../../../../utils/calendarGridUtil';
-import { useSelector } from 'react-redux';
-import { parseISO, isSameDay, isAfter } from 'date-fns';
 import {
   compareEventsByDaysInterval,
   compareEventsByMinutesAsc,

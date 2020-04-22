@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Box } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import Paper from '@material-ui/core/Paper';
 import usePaddingTopBottomSpacing from '../../components/hooks/usePaddingTopBottomSpacing';
 import usePaddingLeftRightSpacing from '../../components/hooks/usePaddingLeftRightSpacing';
-import Paper from '@material-ui/core/Paper';
 import CalendarGridView from './mainCalendarContainer/CalendarGridView';
 
 const useStyles = makeStyles(theme => ({
