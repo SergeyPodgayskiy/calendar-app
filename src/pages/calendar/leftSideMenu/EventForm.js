@@ -109,6 +109,7 @@ const EventForm = () => {
   const isExpandedEventForm = useSelector(state => state.events.isExpandedEventForm);
 
   // Form State
+  // TODO: Replace with reducer
   const [title, setTitle] = useState('');
   const [startDate, setStartDate] = useState(currentSelectedDate);
   const [endDate, setEndDate] = useState(endEventDate);
